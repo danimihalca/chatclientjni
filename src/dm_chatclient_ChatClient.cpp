@@ -123,11 +123,16 @@ JNIEXPORT void JNICALL Java_dm_chatclient_ChatClient_initializeNative
  * Signature: (J)V
  */
 JNIEXPORT void JNICALL Java_dm_chatclient_ChatClient_connectNative
-(JNIEnv * env, jobject obj, jlong pointer)
+(JNIEnv * env, jobject obj, jlong pointer, jstring uri)
 {
     __android_log_write(ANDROID_LOG_INFO, "ChatClientNative", "connectNative");
+
+    const char* uriCStr = (env)->GetStringUTFChars(uri,0);
     IChatClient* chatClient  = reinterpret_cast<IChatClient*>(pointer);
-    chatClient->connect("ws://192.168.0.3:9002");
+    chatClient->connect(uriCStr);
+    (env)->ReleaseStringUTFChars(uri, uriCStr);
+
+//    chatClient->connect("ws://192.168.0.3:9002");
 }
 
 /*

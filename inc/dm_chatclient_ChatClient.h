@@ -29,7 +29,7 @@ JNIEXPORT void JNICALL Java_dm_chatclient_ChatClient_initializeNative
  * Signature: (J)V
  */
 JNIEXPORT void JNICALL Java_dm_chatclient_ChatClient_connectNative
-  (JNIEnv *, jobject, jlong);
+(JNIEnv *, jobject, jlong, jstring);
 
 /*
  * Class:     dm_chatclient_ChatClient
