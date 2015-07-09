@@ -2,13 +2,89 @@
 
 #include "IChatClient.h"
 #include "ChatClient.h"
+#include "common.h"
 
 #include <android/log.h>
 
 JavaVM* gJavaVM = NULL;
-jobject gJavaChatClient;
+jobject gJavaChatClientObj;
 
 const char* gJavaChatClientPath = "dm/chatclient/ChatClient";
+const char* newMessageMethod = "notifyNewMessage";
+
+
+void messageCallback(const char* message)
+{
+    __android_log_write(ANDROID_LOG_INFO, "ChatClientNative", "newMessageCallback");
+
+    bool isAttached = false;
+
+    JNIEnv *env;
+    if (gJavaVM->GetEnv((void **) &env, JNI_VERSION_1_6) != JNI_OK)
+    {
+        __android_log_write(ANDROID_LOG_ERROR, "ChatClientNative", "GetEnv failed");
+        if (gJavaVM->AttachCurrentThread(&env, NULL) != JNI_OK)
+        {
+            __android_log_write(ANDROID_LOG_ERROR, "ChatClientNative", "Env failed to attach thread");
+            return;
+        }
+        __android_log_write(ANDROID_LOG_INFO, "ChatClientNative", "Env attached to thread");
+
+        isAttached = true;
+    }
+
+    jclass chatClientJavaClass = env->GetObjectClass(gJavaChatClientObj);
+    if (!chatClientJavaClass)
+    {
+        __android_log_write(ANDROID_LOG_ERROR, "ChatClientNative", "GetObjectClass failed");
+        if (isAttached)
+        {
+            gJavaVM->DetachCurrentThread();
+        }
+        return;
+    }
+    ///////////////////////////////// list methods for class
+//    jobject strObj = env->AllocObject(chatClientJavaClass);
+//    jmethodID midGetClass = env->GetMethodID(chatClientJavaClass, "getClass", "()Ljava/lang/Class;");
+//    jobject clsObj = env->CallObjectMethod(strObj, midGetClass);
+//    jclass jCls = env->GetObjectClass(clsObj);
+//    jmethodID midGetFields = env->GetMethodID(jCls, "getMethods", "()[Ljava/lang/reflect/Method;");
+//    jobjectArray jobjArray = (jobjectArray)env->CallObjectMethod(clsObj, midGetFields);
+//    jsize len = env->GetArrayLength(jobjArray);
+//    jsize i;
+
+//    for (i = 0 ; i < len ; i++)
+//    {
+//        jobject _strMethod = env->GetObjectArrayElement(jobjArray , i) ;
+//        jclass _methodClazz = env->GetObjectClass(_strMethod) ;
+//        jmethodID mid = env->GetMethodID(_methodClazz , "getName" , "()Ljava/lang/String;") ;
+//        jstring _name = (jstring)env->CallObjectMethod(_strMethod , mid ) ;
+//        const char *str = env->GetStringUTFChars(_name, 0);
+//        __android_log_write(ANDROID_LOG_INFO, "MMMMM", str);
+
+//        env->ReleaseStringUTFChars(_name, str);
+//    }
+    /// /////////////////////////////
+
+    jmethodID jNewMessageMethod = env->GetMethodID(chatClientJavaClass, "notifyNewMessage", "(Ljava/lang/String;)V");
+    if (!jNewMessageMethod)
+    {
+        __android_log_write(ANDROID_LOG_ERROR, "ChatClientNative", "GetMethodID failed");
+        if (isAttached)
+        {
+            gJavaVM->DetachCurrentThread();
+        }
+        return;
+    }
+    jstring jMessage = env->NewStringUTF(message);
+    env->CallVoidMethod(gJavaChatClientObj,jNewMessageMethod,jMessage);
+
+    if (isAttached)
+    {
+        gJavaVM->DetachCurrentThread();
+    }
+}
+
 /*
  * Class:     dm_chatclient_ChatClient
  * Method:    createClientNative
@@ -19,6 +95,11 @@ JNIEXPORT jlong JNICALL Java_dm_chatclient_ChatClient_createClientNative
 {
     __android_log_write(ANDROID_LOG_INFO, "ChatClientNative", "createClientNative");
     IChatClient* chatClient = new ChatClient();
+    chatClient->setNewMessageCallback(&messageCallback);
+
+    //##########################################
+    gJavaChatClientObj = env->NewGlobalRef(obj);
+    //##########################################
 
     return (long)chatClient;
 }
@@ -103,7 +184,7 @@ JNIEXPORT void JNICALL Java_dm_chatclient_ChatClient_destroyClientNative
     if (chatClient != nullptr)
     {
         delete chatClient;
-        env->DeleteGlobalRef(gJavaChatClient);
+        env->DeleteGlobalRef(gJavaChatClientObj);
     }
 
 }
@@ -127,7 +208,7 @@ JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM* jVm, void* /*aReserved*/)
         __android_log_write(ANDROID_LOG_ERROR, "ChatClientNative", "FindClass failed");
         return -1;
     }
-    gJavaChatClient = env->NewGlobalRef(chatClientClass);
+    //    gJavaChatClientObj = env->NewGlobalRef(chatClientClass);
 
     return JNI_VERSION_1_6;
 
