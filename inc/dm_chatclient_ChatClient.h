@@ -33,6 +33,15 @@ JNIEXPORT void JNICALL Java_dm_chatclient_ChatClient_connectNative
 
 /*
  * Class:     dm_chatclient_ChatClient
+ * Method:    disconnectNative
+ * Signature: (J)V
+ */
+JNIEXPORT void JNICALL Java_dm_chatclient_ChatClient_disconnectNative
+  (JNIEnv *, jobject, jlong);
+
+
+/*
+ * Class:     dm_chatclient_ChatClient
  * Method:    startServiceNative
  * Signature: (J)V
  */
@@ -54,6 +63,11 @@ JNIEXPORT void JNICALL Java_dm_chatclient_ChatClient_sendMessageNative
  */
 JNIEXPORT void JNICALL Java_dm_chatclient_ChatClient_destroyClientNative
   (JNIEnv *, jobject, jlong);
+
+JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM* jVm, void* aReserved);
+
+JNIEXPORT void JNICALL JNI_OnUnload(JavaVM* jVm, void* reserved);
+
 
 #ifdef __cplusplus
 }
