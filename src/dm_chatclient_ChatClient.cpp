@@ -1,8 +1,8 @@
 #include "dm_chatclient_ChatClient.h"
 
-#include "IChatClient.h"
-#include "ChatClient.h"
-#include "common.h"
+#include <IChatClient.h>
+#include <ChatClient.h>
+#include <common.h>
 
 #include <android/log.h>
 
