@@ -17,19 +17,11 @@ JNIEXPORT jlong JNICALL Java_dm_chatclient_ChatClient_createClientNative
 
 /*
  * Class:     dm_chatclient_ChatClient
- * Method:    initializeNative
- * Signature: (J)V
- */
-JNIEXPORT void JNICALL Java_dm_chatclient_ChatClient_initializeNative
-  (JNIEnv *, jobject, jlong);
-
-/*
- * Class:     dm_chatclient_ChatClient
  * Method:    connectNative
- * Signature: (J)V
+ * Signature: (JLjava/lang/String;I)V
  */
 JNIEXPORT void JNICALL Java_dm_chatclient_ChatClient_connectNative
-(JNIEnv *, jobject, jlong, jstring);
+  (JNIEnv *, jobject, jlong, jstring, jint);
 
 /*
  * Class:     dm_chatclient_ChatClient
@@ -37,15 +29,6 @@ JNIEXPORT void JNICALL Java_dm_chatclient_ChatClient_connectNative
  * Signature: (J)V
  */
 JNIEXPORT void JNICALL Java_dm_chatclient_ChatClient_disconnectNative
-  (JNIEnv *, jobject, jlong);
-
-
-/*
- * Class:     dm_chatclient_ChatClient
- * Method:    startServiceNative
- * Signature: (J)V
- */
-JNIEXPORT void JNICALL Java_dm_chatclient_ChatClient_startServiceNative
   (JNIEnv *, jobject, jlong);
 
 /*
@@ -63,11 +46,6 @@ JNIEXPORT void JNICALL Java_dm_chatclient_ChatClient_sendMessageNative
  */
 JNIEXPORT void JNICALL Java_dm_chatclient_ChatClient_destroyClientNative
   (JNIEnv *, jobject, jlong);
-
-JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM* jVm, void* aReserved);
-
-JNIEXPORT void JNICALL JNI_OnUnload(JavaVM* jVm, void* reserved);
-
 
 #ifdef __cplusplus
 }
