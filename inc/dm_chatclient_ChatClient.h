@@ -3,25 +3,33 @@
 /* Header for class dm_chatclient_ChatClient */
 
 #ifndef _Included_dm_chatclient_ChatClient
-#define _Included_dm_chatclient_ChatClient
-#ifdef __cplusplus
+ #define _Included_dm_chatclient_ChatClient
+ #ifdef __cplusplus
 extern "C" {
-#endif
+ #endif
 /*
  * Class:     dm_chatclient_ChatClient
  * Method:    createClientNative
  * Signature: ()J
  */
 JNIEXPORT jlong JNICALL Java_dm_chatclient_ChatClient_createClientNative
-  (JNIEnv *, jobject);
+    (JNIEnv*, jobject);
 
 /*
  * Class:     dm_chatclient_ChatClient
- * Method:    connectNative
+ * Method:    setServerPropertiesNative
  * Signature: (JLjava/lang/String;I)V
  */
-JNIEXPORT void JNICALL Java_dm_chatclient_ChatClient_connectNative
-  (JNIEnv *, jobject, jlong, jstring, jint);
+JNIEXPORT void JNICALL Java_dm_chatclient_ChatClient_setServerPropertiesNative
+    (JNIEnv*, jobject, jlong, jstring, jint);
+
+/*
+ * Class:     dm_chatclient_ChatClient
+ * Method:    loginNative
+ * Signature: (JLjava/lang/String;Ljava/lang/String)V
+ */
+JNIEXPORT void JNICALL Java_dm_chatclient_ChatClient_loginNative
+    (JNIEnv*, jobject, jlong, jstring, jstring);
 
 /*
  * Class:     dm_chatclient_ChatClient
@@ -29,7 +37,7 @@ JNIEXPORT void JNICALL Java_dm_chatclient_ChatClient_connectNative
  * Signature: (J)V
  */
 JNIEXPORT void JNICALL Java_dm_chatclient_ChatClient_disconnectNative
-  (JNIEnv *, jobject, jlong);
+    (JNIEnv*, jobject, jlong);
 
 /*
  * Class:     dm_chatclient_ChatClient
@@ -37,7 +45,7 @@ JNIEXPORT void JNICALL Java_dm_chatclient_ChatClient_disconnectNative
  * Signature: (JLjava/lang/String;)V
  */
 JNIEXPORT void JNICALL Java_dm_chatclient_ChatClient_sendMessageNative
-  (JNIEnv *, jobject, jlong, jstring);
+    (JNIEnv*, jobject, jlong, jstring);
 
 /*
  * Class:     dm_chatclient_ChatClient
@@ -45,9 +53,9 @@ JNIEXPORT void JNICALL Java_dm_chatclient_ChatClient_sendMessageNative
  * Signature: (J)V
  */
 JNIEXPORT void JNICALL Java_dm_chatclient_ChatClient_destroyClientNative
-  (JNIEnv *, jobject, jlong);
+    (JNIEnv*, jobject, jlong);
 
-#ifdef __cplusplus
+ #ifdef __cplusplus
 }
-#endif
+ #endif
 #endif

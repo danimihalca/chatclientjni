@@ -15,6 +15,9 @@ JNIChatClientListener::JNIChatClientListener(JavaVM* javaVM, jobject& obj) :
     setOnMessageJavaMethod(env, javaClass);
     setOnConnectedJavaMethod(env, javaClass);
     setOnDisconnectedJavaMethod(env, javaClass);
+    setOnLoginSuccesfullJavaMethod(env,javaClass);
+    setOnLoginFailedJavaMethod(env,javaClass);
+    setOnConnectionErrorJavaMethod(env,javaClass);
 
     if (b_threadAttachedToEnv)
     {
@@ -74,6 +77,49 @@ void JNIChatClientListener::onDisconnected()
     if (b_threadAttachedToEnv)
     {
         p_javaVM->DetachCurrentThread();
+    }
+}
+
+void JNIChatClientListener::onLoginSuccessfull()
+{
+    JNIEnv* env = getEnv();
+
+    env->CallVoidMethod(m_calledJavaObject,m_onLoginSuccesfullJavaMethod);
+
+    if (b_threadAttachedToEnv)
+    {
+        p_javaVM->DetachCurrentThread();
+        __android_log_write(ANDROID_LOG_INFO,
+                            "ChatClientNative",
+                            "Thread deattached from env");
+    }
+}
+
+void JNIChatClientListener::onLoginFailed(const std::string& message)
+{
+    JNIEnv* env = getEnv();
+
+    jstring jMessage = env->NewStringUTF(message.c_str());
+    env->CallVoidMethod(m_calledJavaObject,m_onLoginFailedJavaMethod,jMessage);
+
+    if (b_threadAttachedToEnv)
+    {
+        p_javaVM->DetachCurrentThread();
+    }
+}
+
+void JNIChatClientListener::onConnectionError()
+{
+    JNIEnv* env = getEnv();
+
+    env->CallVoidMethod(m_calledJavaObject,m_onConnectionErrorJavaMethod);
+
+    if (b_threadAttachedToEnv)
+    {
+        p_javaVM->DetachCurrentThread();
+        __android_log_write(ANDROID_LOG_INFO,
+                            "ChatClientNative",
+                            "Thread deattached from env");
     }
 }
 
@@ -169,5 +215,59 @@ void JNIChatClientListener::setOnDisconnectedJavaMethod(JNIEnv* env,
             p_javaVM->DetachCurrentThread();
         }
         return;
+    }
+}
+
+void JNIChatClientListener::setOnLoginSuccesfullJavaMethod(JNIEnv* env,
+                                                           jclass  javaClass)
+{
+    m_onLoginSuccesfullJavaMethod = env->GetMethodID(javaClass,
+                                                     "notifyOnLoginSuccessfull",
+                                                     "()V");
+    if (!m_onLoginSuccesfullJavaMethod)
+    {
+        __android_log_write(ANDROID_LOG_ERROR,
+                            "ChatClientNative",
+                            "GetMethodID failed");
+        if (b_threadAttachedToEnv)
+        {
+            p_javaVM->DetachCurrentThread();
+        }
+    }
+}
+
+void JNIChatClientListener::setOnConnectionErrorJavaMethod(JNIEnv* env,
+                                                           jclass  javaClass)
+{
+    m_onConnectionErrorJavaMethod = env->GetMethodID(javaClass,
+                                                     "notifyOnConnectionError",
+                                                     "()V");
+    if (!m_onConnectionErrorJavaMethod)
+    {
+        __android_log_write(ANDROID_LOG_ERROR,
+                            "ChatClientNative",
+                            "GetMethodID failed");
+        if (b_threadAttachedToEnv)
+        {
+            p_javaVM->DetachCurrentThread();
+        }
+    }
+}
+
+void JNIChatClientListener::setOnLoginFailedJavaMethod(JNIEnv* env,
+                                                       jclass  javaClass)
+{
+    m_onLoginFailedJavaMethod = env->GetMethodID(javaClass,
+                                                 "notifyOnLoginFailed",
+                                                 "(Ljava/lang/String;)V");
+    if (!m_onLoginFailedJavaMethod)
+    {
+        __android_log_write(ANDROID_LOG_ERROR,
+                            "ChatClientNative",
+                            "GetMethodID failed");
+        if (b_threadAttachedToEnv)
+        {
+            p_javaVM->DetachCurrentThread();
+        }
     }
 }

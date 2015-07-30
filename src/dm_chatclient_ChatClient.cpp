@@ -33,20 +33,41 @@ JNIEXPORT jlong JNICALL Java_dm_chatclient_ChatClient_createClientNative
 
 /*
  * Class:     dm_chatclient_ChatClient
- * Method:    connectNative
+ * Method:    setServerPropertiesNative
  * Signature: (JLjava/lang/String;I)V
  */
-JNIEXPORT void JNICALL Java_dm_chatclient_ChatClient_connectNative
+JNIEXPORT void JNICALL Java_dm_chatclient_ChatClient_setServerPropertiesNative
     (JNIEnv* env, jobject obj, jlong pointer, jstring address, jint port)
 {
-    __android_log_write(ANDROID_LOG_INFO, "ChatClientNative", "connectNative");
+    __android_log_write(ANDROID_LOG_INFO, "ChatClientNative", "setServerPropertiesNative");
 
     const char* addressCStr = (env)->GetStringUTFChars(address,0);
     IChatClient* chatClient = reinterpret_cast<IChatClient*>(pointer);
-    chatClient->connect(addressCStr,(uint16_t)port);
+    chatClient->setServerProperties(addressCStr,(uint16_t)port);
 
     (env)->ReleaseStringUTFChars(address, addressCStr);
 }
+
+/*
+ * Class:     dm_chatclient_ChatClient
+ * Method:    loginNative
+ * Signature: (JLjava/lang/String;Ljava/lang/String)V
+ */
+JNIEXPORT void JNICALL Java_dm_chatclient_ChatClient_loginNative
+    (JNIEnv* env, jobject obj, jlong pointer, jstring username, jstring password)
+{
+    __android_log_write(ANDROID_LOG_INFO, "ChatClientNative", "loginNative");
+
+    const char* usernameCStr = (env)->GetStringUTFChars(username,0);
+    const char* passwordCStr = (env)->GetStringUTFChars(password,0);
+
+    IChatClient* chatClient = reinterpret_cast<IChatClient*>(pointer);
+    chatClient->login(usernameCStr,passwordCStr);
+
+    (env)->ReleaseStringUTFChars(username, usernameCStr);
+    (env)->ReleaseStringUTFChars(password, passwordCStr);
+}
+
 
 /*
  * Class:     dm_chatclient_ChatClient
