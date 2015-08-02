@@ -1,10 +1,10 @@
 #include "dm_chatclient_ChatClient.h"
 
-#include <ChatClient/IChatClient.h>
-#include <ChatClient/ChatClient.h>
-#include <chat_client_common.h>
+#include <ChatClient/IChatClient.hpp>
+#include <ChatClient/ChatClient.hpp>
+#include <chat_client_common.hpp>
 
-#include "JNIChatClientListener.h"
+#include "JNIChatClientListener.hpp"
 
 #include <android/log.h>
 

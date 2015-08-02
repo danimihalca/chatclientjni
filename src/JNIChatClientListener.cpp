@@ -1,4 +1,4 @@
-#include "JNIChatClientListener.h"
+#include "JNIChatClientListener.hpp"
 
 #include <android/log.h>
 
@@ -80,7 +80,7 @@ void JNIChatClientListener::onDisconnected()
     }
 }
 
-void JNIChatClientListener::onLoginSuccessfull()
+void JNIChatClientListener::onLoginSuccessful()
 {
     JNIEnv* env = getEnv();
 

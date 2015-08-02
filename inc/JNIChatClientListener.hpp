@@ -3,7 +3,7 @@
 
 #include <jni.h>
 
-#include <ChatClient/IChatClientListener.h>
+#include <ChatClient/IChatClientListener.hpp>
 
 class JNIChatClientListener :
     public IChatClientListener
@@ -17,7 +17,7 @@ public:
     void onMessageReceived(const std::string& message);
     void onConnected();
     void onDisconnected();
-    void onLoginSuccessfull();
+    void onLoginSuccessful();
     void onLoginFailed(const std::string& message);
     void onConnectionError();
 
