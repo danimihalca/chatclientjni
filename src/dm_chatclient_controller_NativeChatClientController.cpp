@@ -1,4 +1,4 @@
-#include "dm_chatclient_ChatClient.h"
+#include "dm_chatclient_controller_NativeChatClientController.h"
 
 #include <ChatClient/IChatClient.hpp>
 #include <ChatClient/ChatClient.hpp>
@@ -12,12 +12,12 @@ JavaVM* gJavaVM = NULL;
 
 
 /*
- * Class:     dm_chatclient_ChatClient
+ * Class:     dm_chatclient_controller_NativeChatClientController
  * Method:    createClientNative
  * Signature: ()J
  */
-JNIEXPORT jlong JNICALL Java_dm_chatclient_ChatClient_createClientNative
-    (JNIEnv* env, jobject obj)
+JNIEXPORT jlong JNICALL Java_dm_chatclient_controller_NativeChatClientController_createClientNative
+  (JNIEnv * env, jobject obj)
 {
     __android_log_write(ANDROID_LOG_INFO,
                         "ChatClientNative",
@@ -32,12 +32,12 @@ JNIEXPORT jlong JNICALL Java_dm_chatclient_ChatClient_createClientNative
 }
 
 /*
- * Class:     dm_chatclient_ChatClient
+ * Class:     dm_chatclient_controller_NativeChatClientController
  * Method:    setServerPropertiesNative
  * Signature: (JLjava/lang/String;I)V
  */
-JNIEXPORT void JNICALL Java_dm_chatclient_ChatClient_setServerPropertiesNative
-    (JNIEnv* env, jobject obj, jlong pointer, jstring address, jint port)
+JNIEXPORT void JNICALL Java_dm_chatclient_controller_NativeChatClientController_setServerPropertiesNative
+    (JNIEnv* env, jobject /*obj*/, jlong pointer, jstring address, jint port)
 {
     __android_log_write(ANDROID_LOG_INFO, "ChatClientNative", "setServerPropertiesNative");
 
@@ -49,12 +49,12 @@ JNIEXPORT void JNICALL Java_dm_chatclient_ChatClient_setServerPropertiesNative
 }
 
 /*
- * Class:     dm_chatclient_ChatClient
+ * Class:     dm_chatclient_controller_NativeChatClientController
  * Method:    loginNative
- * Signature: (JLjava/lang/String;Ljava/lang/String)V
+ * Signature: (JLjava/lang/String;Ljava/lang/String;)V
  */
-JNIEXPORT void JNICALL Java_dm_chatclient_ChatClient_loginNative
-    (JNIEnv* env, jobject obj, jlong pointer, jstring username, jstring password)
+JNIEXPORT void JNICALL Java_dm_chatclient_controller_NativeChatClientController_loginNative
+    (JNIEnv* env, jobject /*obj*/, jlong pointer, jstring username, jstring password)
 {
     __android_log_write(ANDROID_LOG_INFO, "ChatClientNative", "loginNative");
 
@@ -70,12 +70,12 @@ JNIEXPORT void JNICALL Java_dm_chatclient_ChatClient_loginNative
 
 
 /*
- * Class:     dm_chatclient_ChatClient
+ * Class:     dm_chatclient_controller_NativeChatClientController
  * Method:    disconnectNative
  * Signature: (J)V
  */
-JNIEXPORT void JNICALL Java_dm_chatclient_ChatClient_disconnectNative
-    (JNIEnv* env, jobject obj, jlong pointer)
+JNIEXPORT void JNICALL Java_dm_chatclient_controller_NativeChatClientController_disconnectNative
+    (JNIEnv* env, jobject /*obj*/, jlong pointer)
 {
     __android_log_write(ANDROID_LOG_INFO, "ChatClientNative",
                         "disconnectNative");
@@ -84,12 +84,12 @@ JNIEXPORT void JNICALL Java_dm_chatclient_ChatClient_disconnectNative
 }
 
 /*
- * Class:     dm_chatclient_ChatClient
+ * Class:     dm_chatclient_controller_NativeChatClientController
  * Method:    sendMessageNative
  * Signature: (JLjava/lang/String;)V
  */
-JNIEXPORT void JNICALL Java_dm_chatclient_ChatClient_sendMessageNative
-    (JNIEnv* env, jobject obj, jlong pointer, jstring message)
+JNIEXPORT void JNICALL Java_dm_chatclient_controller_NativeChatClientController_sendMessageNative
+    (JNIEnv* env, jobject /*obj*/, jlong pointer, jstring message)
 {
     __android_log_write(ANDROID_LOG_INFO,
                         "ChatClientNative",
@@ -101,12 +101,12 @@ JNIEXPORT void JNICALL Java_dm_chatclient_ChatClient_sendMessageNative
 }
 
 /*
- * Class:     dm_chatclient_ChatClient
+ * Class:     dm_chatclient_controller_NativeChatClientController
  * Method:    destroyClientNative
  * Signature: (J)V
  */
-JNIEXPORT void JNICALL Java_dm_chatclient_ChatClient_destroyClientNative
-    (JNIEnv* env, jobject obj, jlong pointer)
+JNIEXPORT void JNICALL Java_dm_chatclient_controller_NativeChatClientController_destroyClientNative
+    (JNIEnv* /*env*/, jobject /*obj*/, jlong pointer)
 {
     __android_log_write(ANDROID_LOG_INFO,
                         "ChatClientNative",
@@ -124,5 +124,4 @@ JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM* jVm, void* /*aReserved*/)
     gJavaVM = jVm;
 
     return JNI_VERSION_1_6;
-
 }

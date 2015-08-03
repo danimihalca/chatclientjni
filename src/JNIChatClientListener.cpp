@@ -222,7 +222,7 @@ void JNIChatClientListener::setOnLoginSuccesfullJavaMethod(JNIEnv* env,
                                                            jclass  javaClass)
 {
     m_onLoginSuccesfullJavaMethod = env->GetMethodID(javaClass,
-                                                     "notifyOnLoginSuccessfull",
+                                                     "notifyOnLoginSuccessful",
                                                      "()V");
     if (!m_onLoginSuccesfullJavaMethod)
     {

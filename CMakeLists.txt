@@ -8,9 +8,9 @@ INCLUDE_DIRECTORIES(${HEADERS_INSTALL_PATH})
 
 LINK_DIRECTORIES(${LIBRARY_INSTALL_PATH})
 
-SET (HEADER_FILES inc/dm_chatclient_ChatClient.h
+SET (HEADER_FILES inc/dm_chatclient_controller_NativeChatClientController.h
                   inc/JNIChatClientListener.hpp)
-SET (SOURCE_FILES src/dm_chatclient_ChatClient.cpp
+SET (SOURCE_FILES src/dm_chatclient_controller_NativeChatClientController.cpp
                   src/JNIChatClientListener.cpp)
 
 SET (LIBRARIES log
