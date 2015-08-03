@@ -116,8 +116,22 @@ JNIEXPORT void JNICALL Java_dm_chatclient_controller_NativeChatClientController_
     {
         delete chatClient;
     }
-
 }
+
+/*
+ * Class:     dm_chatclient_controller_NativeChatClientController
+ * Method:    requestContactsNative
+ * Signature: (J)V
+ */
+JNIEXPORT void JNICALL Java_dm_chatclient_controller_NativeChatClientController_requestContactsNative
+  (JNIEnv *env, jobject obj, jlong pointer)
+{
+    __android_log_write(ANDROID_LOG_INFO, "ChatClientNative", "requestContactsNative");
+
+    IChatClient* chatClient = reinterpret_cast<IChatClient*>(pointer);
+    chatClient->getContacts();
+}
+
 
 JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM* jVm, void* /*aReserved*/)
 {

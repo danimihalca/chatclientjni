@@ -30,6 +30,7 @@ private:
     void setOnLoginSuccesfullJavaMethod(JNIEnv* env, jclass javaClass);
     void setOnConnectionErrorJavaMethod(JNIEnv* env, jclass javaClass);
     void setOnLoginFailedJavaMethod(JNIEnv* env, jclass javaClass);
+    void setOnContactsReceivedJavaMethod(JNIEnv* env, jclass javaClass);
 private:
     JavaVM* p_javaVM;
     bool b_threadAttachedToEnv;
@@ -40,6 +41,11 @@ private:
     jmethodID m_onLoginSuccesfullJavaMethod;
     jmethodID m_onConnectionErrorJavaMethod;
     jmethodID m_onLoginFailedJavaMethod;
+    jmethodID m_onContactsReceivedJavaMethod;
+
+    // IChatClientListener interface
+public:
+    void onContactsReceived(const Contacts& contacts);
 };
 
 #endif // JNICHATCLIENTLISTENER_H

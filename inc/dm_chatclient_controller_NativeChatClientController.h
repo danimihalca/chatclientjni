@@ -55,6 +55,14 @@ JNIEXPORT void JNICALL Java_dm_chatclient_controller_NativeChatClientController_
 JNIEXPORT void JNICALL Java_dm_chatclient_controller_NativeChatClientController_destroyClientNative
   (JNIEnv *, jobject, jlong);
 
+/*
+ * Class:     dm_chatclient_controller_NativeChatClientController
+ * Method:    requestContactsNative
+ * Signature: (J)V
+ */
+JNIEXPORT void JNICALL Java_dm_chatclient_controller_NativeChatClientController_requestContactsNative
+  (JNIEnv *, jobject, jlong);
+
 #ifdef __cplusplus
 }
 #endif

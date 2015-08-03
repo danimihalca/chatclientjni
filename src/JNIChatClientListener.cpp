@@ -1,6 +1,9 @@
 #include "JNIChatClientListener.hpp"
 
+
 #include <android/log.h>
+
+#include <debug_utils/log_debug.hpp>
 
 JNIChatClientListener::JNIChatClientListener(JavaVM* javaVM, jobject& obj) :
     p_javaVM(javaVM),
@@ -18,6 +21,7 @@ JNIChatClientListener::JNIChatClientListener(JavaVM* javaVM, jobject& obj) :
     setOnLoginSuccesfullJavaMethod(env,javaClass);
     setOnLoginFailedJavaMethod(env,javaClass);
     setOnConnectionErrorJavaMethod(env,javaClass);
+    setOnContactsReceivedJavaMethod(env,javaClass);
 
     if (b_threadAttachedToEnv)
     {
@@ -270,4 +274,68 @@ void JNIChatClientListener::setOnLoginFailedJavaMethod(JNIEnv* env,
             p_javaVM->DetachCurrentThread();
         }
     }
+}
+
+void JNIChatClientListener::setOnContactsReceivedJavaMethod(JNIEnv* env,
+                                                            jclass  javaClass)
+{
+    m_onContactsReceivedJavaMethod = env->GetMethodID(javaClass,
+                                                  "notifyOnContactsReceived",
+                                                  "([BI)V");
+    if (!m_onContactsReceivedJavaMethod)
+    {
+        __android_log_write(ANDROID_LOG_ERROR,
+                            "ChatClientNative",
+                            "GetMethodID failed");
+        if (b_threadAttachedToEnv)
+        {
+            p_javaVM->DetachCurrentThread();
+        }
+    }
+}
+
+
+void JNIChatClientListener::onContactsReceived(const Contacts& contacts)
+{
+    LOG_DEBUG_METHOD;
+    JNIEnv* env = getEnv();
+    int size = 0;
+
+    char buffer[10000];
+
+    for (Contact c: contacts)
+    {
+
+        int id = c.getDetails().getId();
+        LOG_DEBUG("ID:%d\n",id);
+
+        memcpy(buffer + size,&id,sizeof(int));
+        size += sizeof(int);
+        LOG_DEBUG("Size:%d\n",size);
+
+        LOG_DEBUG("U:%s\n",c.getUserName().c_str());
+        size_t length = c.getUserName().length();
+        LOG_DEBUG("US:%d\n",length);
+        memcpy(buffer + size,c.getUserName().c_str(),length);
+        size += length;
+        buffer[size++] = 0;
+        LOG_DEBUG("Size:%d\n",size);
+
+        LOG_DEBUG("F:%s\n",c.getDetails().getFullName().c_str());
+        length = c.getDetails().getFullName().length();
+        LOG_DEBUG("FS:%d\n",length);
+        memcpy(buffer + size,c.getDetails().getFullName().c_str(),length);
+        size += length;
+        buffer[size++] = 0;
+        LOG_DEBUG("Size:%d\n",size);
+    }
+    LOG_DEBUG("Size:%d\n",size);
+
+    jbyteArray bArray = env->NewByteArray(size);
+    char *bytes = (char *)env->GetByteArrayElements(bArray, 0);
+    memcpy(bytes,buffer,size);
+    env->ReleaseByteArrayElements(bArray, (jbyte*) bytes, JNI_COMMIT);
+
+
+    env->CallVoidMethod(m_calledJavaObject,m_onContactsReceivedJavaMethod,bArray,(jint)size);
 }
