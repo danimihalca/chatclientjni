@@ -74,6 +74,7 @@ void JNIChatClientListener::onConnected()
 
 void JNIChatClientListener::onDisconnected()
 {
+    LOG_DEBUG_METHOD;
     JNIEnv* env = getEnv();
 
     env->CallVoidMethod(m_calledJavaObject,m_onDisconnectedJavaMethod);
@@ -343,4 +344,8 @@ void JNIChatClientListener::onContactsReceived(const Contacts& contacts)
 
 
     env->CallVoidMethod(m_calledJavaObject,m_onContactsReceivedJavaMethod,bArray,(jint)size);
+    if (b_threadAttachedToEnv)
+    {
+        p_javaVM->DetachCurrentThread();
+    }
 }
