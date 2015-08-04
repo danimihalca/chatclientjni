@@ -42,10 +42,10 @@ JNIEXPORT void JNICALL Java_dm_chatclient_controller_NativeChatClientController_
 /*
  * Class:     dm_chatclient_controller_NativeChatClientController
  * Method:    sendMessageNative
- * Signature: (JLjava/lang/String;)V
+ * Signature: (JILjava/lang/String;)V
  */
 JNIEXPORT void JNICALL Java_dm_chatclient_controller_NativeChatClientController_sendMessageNative
-  (JNIEnv *, jobject, jlong, jstring);
+  (JNIEnv *, jobject, jlong, jint, jstring);
 
 /*
  * Class:     dm_chatclient_controller_NativeChatClientController

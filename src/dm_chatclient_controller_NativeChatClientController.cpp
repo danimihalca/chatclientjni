@@ -86,17 +86,17 @@ JNIEXPORT void JNICALL Java_dm_chatclient_controller_NativeChatClientController_
 /*
  * Class:     dm_chatclient_controller_NativeChatClientController
  * Method:    sendMessageNative
- * Signature: (JLjava/lang/String;)V
+ * Signature: (JILjava/lang/String;)V
  */
 JNIEXPORT void JNICALL Java_dm_chatclient_controller_NativeChatClientController_sendMessageNative
-    (JNIEnv* env, jobject /*obj*/, jlong pointer, jstring message)
+    (JNIEnv* env, jobject /*obj*/, jlong pointer, jint receiverId, jstring message)
 {
     __android_log_write(ANDROID_LOG_INFO,
                         "ChatClientNative",
                         "sendMessageNative");
     const char* messageCStr = (env)->GetStringUTFChars(message,0);
     IChatClient* chatClient = reinterpret_cast<IChatClient*>(pointer);
-    chatClient->sendMessage(messageCStr);
+    chatClient->sendMessage(receiverId,messageCStr);
     (env)->ReleaseStringUTFChars(message, messageCStr);
 }
 

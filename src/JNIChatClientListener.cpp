@@ -35,6 +35,7 @@ JNIChatClientListener::JNIChatClientListener(JavaVM* javaVM, jobject& obj) :
 
 JNIChatClientListener::~JNIChatClientListener()
 {
+    LOG_DEBUG_METHOD;
     JNIEnv* env = getEnv();
     env->DeleteGlobalRef(m_calledJavaObject);
 
@@ -46,6 +47,7 @@ JNIChatClientListener::~JNIChatClientListener()
 
 void JNIChatClientListener::onMessageReceived(const std::string& message)
 {
+    LOG_DEBUG("M:%s\n",message.c_str());
     JNIEnv* env = getEnv();
 
     jstring jMessage = env->NewStringUTF(message.c_str());
