@@ -45,13 +45,17 @@ JNIChatClientListener::~JNIChatClientListener()
     }
 }
 
-void JNIChatClientListener::onMessageReceived(const std::string& message)
+void JNIChatClientListener::onMessageReceived(int                senderId,
+                                              const std::string& message)
 {
     LOG_DEBUG("M:%s\n",message.c_str());
     JNIEnv* env = getEnv();
 
     jstring jMessage = env->NewStringUTF(message.c_str());
-    env->CallVoidMethod(m_calledJavaObject,m_onMessageJavaMethod,jMessage);
+    env->CallVoidMethod(m_calledJavaObject,
+                        m_onMessageJavaMethod,
+                        (jint)senderId,
+                        jMessage);
 
     if (b_threadAttachedToEnv)
     {
@@ -173,7 +177,7 @@ void JNIChatClientListener::setOnMessageJavaMethod(JNIEnv* env,
 {
     m_onMessageJavaMethod = env->GetMethodID(javaClass,
                                              "notifyOnMessage",
-                                             "(Ljava/lang/String;)V");
+                                             "(ILjava/lang/String;)V");
     if (!m_onMessageJavaMethod)
     {
         __android_log_write(ANDROID_LOG_ERROR,
@@ -283,8 +287,8 @@ void JNIChatClientListener::setOnContactsReceivedJavaMethod(JNIEnv* env,
                                                             jclass  javaClass)
 {
     m_onContactsReceivedJavaMethod = env->GetMethodID(javaClass,
-                                                  "notifyOnContactsReceived",
-                                                  "([BI)V");
+                                                      "notifyOnContactsReceived",
+                                                      "([BI)V");
     if (!m_onContactsReceivedJavaMethod)
     {
         __android_log_write(ANDROID_LOG_ERROR,
@@ -340,12 +344,15 @@ void JNIChatClientListener::onContactsReceived(const Contacts& contacts)
     LOG_DEBUG("Size:%d\n",size);
 
     jbyteArray bArray = env->NewByteArray(size);
-    char *bytes = (char *)env->GetByteArrayElements(bArray, 0);
+    char* bytes = (char*)env->GetByteArrayElements(bArray, 0);
     memcpy(bytes,buffer,size);
     env->ReleaseByteArrayElements(bArray, (jbyte*) bytes, JNI_COMMIT);
 
 
-    env->CallVoidMethod(m_calledJavaObject,m_onContactsReceivedJavaMethod,bArray,(jint)size);
+    env->CallVoidMethod(m_calledJavaObject,
+                        m_onContactsReceivedJavaMethod,
+                        bArray,
+                        (jint)size);
     if (b_threadAttachedToEnv)
     {
         p_javaVM->DetachCurrentThread();

@@ -14,7 +14,7 @@ public:
 
     // Implements IChatClientListener interface
 public:
-    void onMessageReceived(const std::string& message);
+    void onMessageReceived(int senderId, const std::string& message);
     void onConnected();
     void onDisconnected();
     void onLoginSuccessful();
