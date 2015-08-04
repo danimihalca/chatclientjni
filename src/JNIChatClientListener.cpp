@@ -328,6 +328,11 @@ void JNIChatClientListener::onContactsReceived(const Contacts& contacts)
         size += length;
         buffer[size++] = 0;
         LOG_DEBUG("Size:%d\n",size);
+
+        bool isOnlone = c.isOnline();
+        LOG_DEBUG("O:%d\n",isOnlone);
+        memcpy(buffer + size,&isOnlone,sizeof(bool));
+        size++;
     }
     LOG_DEBUG("Size:%d\n",size);
 
