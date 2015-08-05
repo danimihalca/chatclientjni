@@ -26,7 +26,7 @@ JNIEXPORT jlong JNICALL Java_dm_chatclient_controller_NativeChatClientController
     std::shared_ptr<IChatClientListener> listener(new JNIChatClientListener(
                                                       gJavaVM,
                                                       obj));
-    chatClient->addChatClientListener(listener);
+    chatClient->addListener(listener);
 
     return (long)chatClient;
 }
