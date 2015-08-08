@@ -22,7 +22,6 @@ JNIChatClientListener::JNIChatClientListener(JavaVM* javaVM, jobject& obj) :
     setOnLoginFailedJavaMethod(env,javaClass);
     setOnConnectionErrorJavaMethod(env,javaClass);
     setOnContactsReceivedJavaMethod(env,javaClass);
-    setOnContactOnlineStatusChangedJavaMethod(env,javaClass);
 
     if (b_threadAttachedToEnv)
     {
@@ -302,25 +301,6 @@ void JNIChatClientListener::setOnContactsReceivedJavaMethod(JNIEnv* env,
     }
 }
 
-void JNIChatClientListener::setOnContactOnlineStatusChangedJavaMethod(
-    JNIEnv* env,
-    jclass  javaClass)
-{
-    m_onContactOnlineStatusChangedJavaMethod = env->GetMethodID(javaClass,
-                                                                "notifyOnContactOnlineStatusChanged",
-                                                                "(IZ)V");
-    if (!m_onContactOnlineStatusChangedJavaMethod)
-    {
-        __android_log_write(ANDROID_LOG_ERROR,
-                            "ChatClientNative",
-                            "GetMethodID failed");
-        if (b_threadAttachedToEnv)
-        {
-            p_javaVM->DetachCurrentThread();
-        }
-    }
-}
-
 
 void JNIChatClientListener::onContactsReceived(const Contacts& contacts)
 {
@@ -378,22 +358,3 @@ void JNIChatClientListener::onContactsReceived(const Contacts& contacts)
         p_javaVM->DetachCurrentThread();
     }
 }
-
-
-void JNIChatClientListener::onContactOnlineStatusChanged(int  contactId,
-                                                         bool isOnline)
-{
-    LOG_DEBUG("%d %d\n",contactId,isOnline);
-    JNIEnv* env = getEnv();
-
-    env->CallVoidMethod(m_calledJavaObject,
-                        m_onContactOnlineStatusChangedJavaMethod,
-                        (jint)contactId,
-                        (jboolean)isOnline);
-
-    if (b_threadAttachedToEnv)
-    {
-        p_javaVM->DetachCurrentThread();
-    }
-}
-

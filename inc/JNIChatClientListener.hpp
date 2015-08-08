@@ -20,8 +20,6 @@ public:
     void onLoginSuccessful();
     void onLoginFailed(const std::string& message);
     void onConnectionError();
-    void onContactOnlineStatusChanged(int contactId, bool isOnline);
-    void onContactsReceived(const Contacts& contacts);
 
 private:
     JNIEnv* getEnv();
@@ -33,8 +31,6 @@ private:
     void setOnConnectionErrorJavaMethod(JNIEnv* env, jclass javaClass);
     void setOnLoginFailedJavaMethod(JNIEnv* env, jclass javaClass);
     void setOnContactsReceivedJavaMethod(JNIEnv* env, jclass javaClass);
-    void setOnContactOnlineStatusChangedJavaMethod(JNIEnv* env, jclass javaClass);
-
 private:
     JavaVM* p_javaVM;
     bool b_threadAttachedToEnv;
@@ -46,8 +42,10 @@ private:
     jmethodID m_onConnectionErrorJavaMethod;
     jmethodID m_onLoginFailedJavaMethod;
     jmethodID m_onContactsReceivedJavaMethod;
-    jmethodID m_onContactOnlineStatusChangedJavaMethod;
 
+    // IChatClientListener interface
+public:
+    void onContactsReceived(const Contacts& contacts);
 };
 
 #endif // JNICHATCLIENTLISTENER_H
