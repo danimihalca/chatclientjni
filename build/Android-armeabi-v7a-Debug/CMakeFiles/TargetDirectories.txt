@@ -1,0 +1,1 @@
+D:/thesis/repositories/chatClientJNI/build/Android-armeabi-v7a-Debug/CMakeFiles/chatClientJNI.dir

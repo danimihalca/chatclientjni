@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+   <FileVersion major="1" minor="6" />
+   <Project>
+      <Option title="chatClientJNI" />
+      <Option makefile_is_custom="1" />
+      <Option compiler="gcc" />
+      <Option virtualFolders="CMake Files\;CMake Files\..\;CMake Files\..\scripts\;CMake Files\..\scripts\android-cmake\;" />
+      <Build>
+      <Target title="all">
+         <Option working_dir="D:/thesis/repositories/chatClientJNI/build/Android-armeabi-Debug" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="C:/Qt5/Tools/mingw492_32/bin/mingw32-make.exe -f &quot;D:/thesis/repositories/chatClientJNI/build/Android-armeabi-Debug/Makefile&quot;  VERBOSE=1 all" />
+            <CompileFile command="C:/Qt5/Tools/mingw492_32/bin/mingw32-make.exe -f &quot;D:/thesis/repositories/chatClientJNI/build/Android-armeabi-Debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="C:/Qt5/Tools/mingw492_32/bin/mingw32-make.exe -f &quot;D:/thesis/repositories/chatClientJNI/build/Android-armeabi-Debug/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="C:/Qt5/Tools/mingw492_32/bin/mingw32-make.exe -f &quot;D:/thesis/repositories/chatClientJNI/build/Android-armeabi-Debug/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="install/local">
+         <Option working_dir="D:/thesis/repositories/chatClientJNI/build/Android-armeabi-Debug" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="C:/Qt5/Tools/mingw492_32/bin/mingw32-make.exe -f &quot;D:/thesis/repositories/chatClientJNI/build/Android-armeabi-Debug/Makefile&quot;  VERBOSE=1 install/local" />
+            <CompileFile command="C:/Qt5/Tools/mingw492_32/bin/mingw32-make.exe -f &quot;D:/thesis/repositories/chatClientJNI/build/Android-armeabi-Debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="C:/Qt5/Tools/mingw492_32/bin/mingw32-make.exe -f &quot;D:/thesis/repositories/chatClientJNI/build/Android-armeabi-Debug/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="C:/Qt5/Tools/mingw492_32/bin/mingw32-make.exe -f &quot;D:/thesis/repositories/chatClientJNI/build/Android-armeabi-Debug/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="install/strip">
+         <Option working_dir="D:/thesis/repositories/chatClientJNI/build/Android-armeabi-Debug" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="C:/Qt5/Tools/mingw492_32/bin/mingw32-make.exe -f &quot;D:/thesis/repositories/chatClientJNI/build/Android-armeabi-Debug/Makefile&quot;  VERBOSE=1 install/strip" />
+            <CompileFile command="C:/Qt5/Tools/mingw492_32/bin/mingw32-make.exe -f &quot;D:/thesis/repositories/chatClientJNI/build/Android-armeabi-Debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="C:/Qt5/Tools/mingw492_32/bin/mingw32-make.exe -f &quot;D:/thesis/repositories/chatClientJNI/build/Android-armeabi-Debug/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="C:/Qt5/Tools/mingw492_32/bin/mingw32-make.exe -f &quot;D:/thesis/repositories/chatClientJNI/build/Android-armeabi-Debug/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="edit_cache">
+         <Option working_dir="D:/thesis/repositories/chatClientJNI/build/Android-armeabi-Debug" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="C:/Qt5/Tools/mingw492_32/bin/mingw32-make.exe -f &quot;D:/thesis/repositories/chatClientJNI/build/Android-armeabi-Debug/Makefile&quot;  VERBOSE=1 edit_cache" />
+            <CompileFile command="C:/Qt5/Tools/mingw492_32/bin/mingw32-make.exe -f &quot;D:/thesis/repositories/chatClientJNI/build/Android-armeabi-Debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="C:/Qt5/Tools/mingw492_32/bin/mingw32-make.exe -f &quot;D:/thesis/repositories/chatClientJNI/build/Android-armeabi-Debug/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="C:/Qt5/Tools/mingw492_32/bin/mingw32-make.exe -f &quot;D:/thesis/repositories/chatClientJNI/build/Android-armeabi-Debug/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="install">
+         <Option working_dir="D:/thesis/repositories/chatClientJNI/build/Android-armeabi-Debug" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="C:/Qt5/Tools/mingw492_32/bin/mingw32-make.exe -f &quot;D:/thesis/repositories/chatClientJNI/build/Android-armeabi-Debug/Makefile&quot;  VERBOSE=1 install" />
+            <CompileFile command="C:/Qt5/Tools/mingw492_32/bin/mingw32-make.exe -f &quot;D:/thesis/repositories/chatClientJNI/build/Android-armeabi-Debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="C:/Qt5/Tools/mingw492_32/bin/mingw32-make.exe -f &quot;D:/thesis/repositories/chatClientJNI/build/Android-armeabi-Debug/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="C:/Qt5/Tools/mingw492_32/bin/mingw32-make.exe -f &quot;D:/thesis/repositories/chatClientJNI/build/Android-armeabi-Debug/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="rebuild_cache">
+         <Option working_dir="D:/thesis/repositories/chatClientJNI/build/Android-armeabi-Debug" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="C:/Qt5/Tools/mingw492_32/bin/mingw32-make.exe -f &quot;D:/thesis/repositories/chatClientJNI/build/Android-armeabi-Debug/Makefile&quot;  VERBOSE=1 rebuild_cache" />
+            <CompileFile command="C:/Qt5/Tools/mingw492_32/bin/mingw32-make.exe -f &quot;D:/thesis/repositories/chatClientJNI/build/Android-armeabi-Debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="C:/Qt5/Tools/mingw492_32/bin/mingw32-make.exe -f &quot;D:/thesis/repositories/chatClientJNI/build/Android-armeabi-Debug/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="C:/Qt5/Tools/mingw492_32/bin/mingw32-make.exe -f &quot;D:/thesis/repositories/chatClientJNI/build/Android-armeabi-Debug/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="list_install_components">
+         <Option working_dir="D:/thesis/repositories/chatClientJNI/build/Android-armeabi-Debug" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="C:/Qt5/Tools/mingw492_32/bin/mingw32-make.exe -f &quot;D:/thesis/repositories/chatClientJNI/build/Android-armeabi-Debug/Makefile&quot;  VERBOSE=1 list_install_components" />
+            <CompileFile command="C:/Qt5/Tools/mingw492_32/bin/mingw32-make.exe -f &quot;D:/thesis/repositories/chatClientJNI/build/Android-armeabi-Debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="C:/Qt5/Tools/mingw492_32/bin/mingw32-make.exe -f &quot;D:/thesis/repositories/chatClientJNI/build/Android-armeabi-Debug/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="C:/Qt5/Tools/mingw492_32/bin/mingw32-make.exe -f &quot;D:/thesis/repositories/chatClientJNI/build/Android-armeabi-Debug/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="chatClientJNI">
+         <Option output="D:/thesis/repositories/chatClientJNI/build/Android-armeabi-Debug/libchatClientJNI.so" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="D:/thesis/repositories/chatClientJNI/build/Android-armeabi-Debug" />
+         <Option object_output="./" />
+         <Option type="3" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add option="-DANDROID" />
+            <Add option="-DENABLE_LOG_DEBUG" />
+            <Add directory="C:/android-ndk-r10e/platforms/android-9/arch-arm/usr/include" />
+            <Add directory="C:/android-ndk-r10e/sources/cxx-stl/gnu-libstdc++/4.9/include" />
+            <Add directory="C:/android-ndk-r10e/sources/cxx-stl/gnu-libstdc++/4.9/include/backward" />
+            <Add directory="C:/android-ndk-r10e/sources/cxx-stl/gnu-libstdc++/4.9/libs/armeabi/include" />
+            <Add directory="D:/thesis/dist/include" />
+            <Add directory="D:/thesis/repositories/ChatUtils" />
+            <Add directory="D:/thesis/repositories/chatClientJNI/inc" />
+            <Add directory="c:\android-ndk-r10e\toolchains\arm-linux-androideabi-4.9\prebuilt\windows-x86_64\bin\../lib/gcc/arm-linux-androideabi/4.9/include" />
+            <Add directory="c:\android-ndk-r10e\toolchains\arm-linux-androideabi-4.9\prebuilt\windows-x86_64\bin\../lib/gcc/arm-linux-androideabi/4.9/include-fixed" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="C:/Qt5/Tools/mingw492_32/bin/mingw32-make.exe -f &quot;D:/thesis/repositories/chatClientJNI/build/Android-armeabi-Debug/Makefile&quot;  VERBOSE=1 chatClientJNI" />
+            <CompileFile command="C:/Qt5/Tools/mingw492_32/bin/mingw32-make.exe -f &quot;D:/thesis/repositories/chatClientJNI/build/Android-armeabi-Debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="C:/Qt5/Tools/mingw492_32/bin/mingw32-make.exe -f &quot;D:/thesis/repositories/chatClientJNI/build/Android-armeabi-Debug/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="C:/Qt5/Tools/mingw492_32/bin/mingw32-make.exe -f &quot;D:/thesis/repositories/chatClientJNI/build/Android-armeabi-Debug/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="chatClientJNI/fast">
+         <Option output="D:/thesis/repositories/chatClientJNI/build/Android-armeabi-Debug/libchatClientJNI.so" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="D:/thesis/repositories/chatClientJNI/build/Android-armeabi-Debug" />
+         <Option object_output="./" />
+         <Option type="3" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add option="-DANDROID" />
+            <Add option="-DENABLE_LOG_DEBUG" />
+            <Add directory="C:/android-ndk-r10e/platforms/android-9/arch-arm/usr/include" />
+            <Add directory="C:/android-ndk-r10e/sources/cxx-stl/gnu-libstdc++/4.9/include" />
+            <Add directory="C:/android-ndk-r10e/sources/cxx-stl/gnu-libstdc++/4.9/include/backward" />
+            <Add directory="C:/android-ndk-r10e/sources/cxx-stl/gnu-libstdc++/4.9/libs/armeabi/include" />
+            <Add directory="D:/thesis/dist/include" />
+            <Add directory="D:/thesis/repositories/ChatUtils" />
+            <Add directory="D:/thesis/repositories/chatClientJNI/inc" />
+            <Add directory="c:\android-ndk-r10e\toolchains\arm-linux-androideabi-4.9\prebuilt\windows-x86_64\bin\../lib/gcc/arm-linux-androideabi/4.9/include" />
+            <Add directory="c:\android-ndk-r10e\toolchains\arm-linux-androideabi-4.9\prebuilt\windows-x86_64\bin\../lib/gcc/arm-linux-androideabi/4.9/include-fixed" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="C:/Qt5/Tools/mingw492_32/bin/mingw32-make.exe -f &quot;D:/thesis/repositories/chatClientJNI/build/Android-armeabi-Debug/Makefile&quot;  VERBOSE=1 chatClientJNI/fast" />
+            <CompileFile command="C:/Qt5/Tools/mingw492_32/bin/mingw32-make.exe -f &quot;D:/thesis/repositories/chatClientJNI/build/Android-armeabi-Debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="C:/Qt5/Tools/mingw492_32/bin/mingw32-make.exe -f &quot;D:/thesis/repositories/chatClientJNI/build/Android-armeabi-Debug/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="C:/Qt5/Tools/mingw492_32/bin/mingw32-make.exe -f &quot;D:/thesis/repositories/chatClientJNI/build/Android-armeabi-Debug/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      </Build>
+      <Unit filename="D:/thesis/repositories/chatClientJNI/inc/JNIChatClientListener.hpp">
+         <Option target="chatClientJNI"/>
+      </Unit>
+      <Unit filename="D:/thesis/repositories/chatClientJNI/inc/dm_chatclient_controller_NativeChatClientController.h">
+         <Option target="chatClientJNI"/>
+      </Unit>
+      <Unit filename="D:/thesis/repositories/chatClientJNI/src/JNIChatClientListener.cpp">
+         <Option target="chatClientJNI"/>
+      </Unit>
+      <Unit filename="D:/thesis/repositories/chatClientJNI/src/dm_chatclient_controller_NativeChatClientController.cpp">
+         <Option target="chatClientJNI"/>
+      </Unit>
+      <Unit filename="D:/thesis/repositories/chatClientJNI/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\" />
+      </Unit>
+      <Unit filename="D:/thesis/repositories/chatClientJNI/../scripts/android-armeabi.toolchain.cmake">
+          <Option virtualFolder="CMake Files\..\scripts\" />
+      </Unit>
+      <Unit filename="D:/thesis/repositories/chatClientJNI/../scripts/utils.cmake">
+          <Option virtualFolder="CMake Files\..\scripts\" />
+      </Unit>
+      <Unit filename="D:/thesis/repositories/chatClientJNI/../scripts/android-cmake/android.toolchain.cmake">
+          <Option virtualFolder="CMake Files\..\scripts\android-cmake\" />
+      </Unit>
+   </Project>
+</CodeBlocks_project_file>
