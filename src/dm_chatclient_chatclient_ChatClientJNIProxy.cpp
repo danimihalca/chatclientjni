@@ -20,11 +20,6 @@ JNIEXPORT jlong JNICALL Java_dm_chatclient_chatclient_ChatClientJNIProxy_createC
                         "ChatClientNative",
                         "createClientNative");
     IChatClient* chatClient = new ChatClient();
-//    std::shared_ptr<IChatClientListener> listener(new JNIChatClientListener(
-//                                                      gJavaVM,
-//                                                      obj));
-//    chatClient->addListener(listener);
-
     return (long)chatClient;
 }
 

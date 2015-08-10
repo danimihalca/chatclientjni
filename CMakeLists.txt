@@ -13,9 +13,15 @@ INCLUDE_DIRECTORIES(${CHAT_UTILS_PATH})
 
 LINK_DIRECTORIES(${LIBRARY_INSTALL_PATH})
 
-SET (HEADER_FILES inc/dm_chatclient_controller_NativeChatClientController.h
+SET (HEADER_FILES inc/dm_chatclient_chatclient_ChatClientJNIProxy.h
+                  inc/dm_chatclient_chatclient_notifier_JNIChatClientNotifier.h
+                  inc/dm_chatclient_chatclient_notifier_JNIChatClientNotifierProxy.h
+                  inc/JNIChatClientNotifierProxy.hpp
                   inc/JNIChatClientListener.hpp)
-SET (SOURCE_FILES src/dm_chatclient_controller_NativeChatClientController.cpp
+SET (SOURCE_FILES src/dm_chatclient_chatclient_ChatClientJNIProxy.cpp
+                  src/dm_chatclient_chatclient_notifier_JNIChatClientNotifier.cpp
+                  src/dm_chatclient_chatclient_notifier_JNIChatClientNotifierProxy.cpp
+                  src/JNIChatClientNotifierProxy.cpp
                   src/JNIChatClientListener.cpp)
 
 SET (LIBRARIES log
