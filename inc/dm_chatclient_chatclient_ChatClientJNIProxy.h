@@ -17,10 +17,10 @@ JNIEXPORT jlong JNICALL Java_dm_chatclient_chatclient_ChatClientJNIProxy_createC
 
 /*
  * Class:     dm_chatclient_chatclient_ChatClientJNIProxy
- * Method:    setServerPropertiesNative
+ * Method:    connectNative
  * Signature: (JLjava/lang/String;I)V
  */
-JNIEXPORT void JNICALL Java_dm_chatclient_chatclient_ChatClientJNIProxy_setServerPropertiesNative
+JNIEXPORT void JNICALL Java_dm_chatclient_chatclient_ChatClientJNIProxy_connectNative
   (JNIEnv *, jobject, jlong, jstring, jint);
 
 /*

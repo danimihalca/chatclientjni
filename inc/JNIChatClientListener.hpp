@@ -5,6 +5,9 @@
 
 #include <ChatClient/IChatClientListener.hpp>
 
+#include <Model/User.hpp>
+#include <Model/Message.hpp>
+
 class JNIChatClientNotifierProxy;
 
 class JNIChatClientListener :
@@ -16,14 +19,14 @@ public:
 
     // Implements IChatClientListener interface
 public:
-    void onMessageReceived(int senderId, const std::string& message);
+    void onMessageReceived(const Message& message);
     void onConnected();
     void onDisconnected();
-    void onLoginSuccessful();
+    void onLoginSuccessful(const UserDetails& userDetails);
     void onLoginFailed(const std::string& message);
     void onConnectionError();
-    void onContactOnlineStatusChanged(int contactId, bool isOnline);
-    void onContactsReceived(const Contacts& contacts);
+    void onContactStateChanged(int contactId, CONTACT_STATE state);
+    void onContactsReceived(const std::vector<Contact>& contacts);
 
 private:
     JNIChatClientNotifierProxy* p_notifierProxy;

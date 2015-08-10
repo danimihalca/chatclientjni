@@ -17,10 +17,9 @@ JNIChatClientListener::~JNIChatClientListener()
     delete p_notifierProxy;
 }
 
-void JNIChatClientListener::onMessageReceived(int                senderId,
-                                              const std::string& message)
+void JNIChatClientListener::onMessageReceived(const Message& message)
 {
-    p_notifierProxy->notifyOnMessageReceived(senderId, message);
+    p_notifierProxy->notifyOnMessageReceived(message.getSenderId(), message.getMessageText());
 }
 
 void JNIChatClientListener::onConnected()
@@ -34,7 +33,7 @@ void JNIChatClientListener::onDisconnected()
 
 }
 
-void JNIChatClientListener::onLoginSuccessful()
+void JNIChatClientListener::onLoginSuccessful(const UserDetails& userDetails)
 {
     p_notifierProxy->notifyOnLoginSuccessful();
 
@@ -54,7 +53,7 @@ void JNIChatClientListener::onConnectionError()
 
 
 
-void JNIChatClientListener::onContactsReceived(const Contacts& contacts)
+void JNIChatClientListener::onContactsReceived(const std::vector<Contact>& contacts)
 {
     int size = 0;
 
@@ -62,7 +61,7 @@ void JNIChatClientListener::onContactsReceived(const Contacts& contacts)
 
     for (Contact c: contacts)
     {
-        int id = c.getDetails().getId();
+        int id = c.getId();
 
         memcpy(buffer + size, &id, sizeof(int));
         size += sizeof(int);
@@ -72,12 +71,18 @@ void JNIChatClientListener::onContactsReceived(const Contacts& contacts)
         size += length;
         buffer[size++] = 0;
 
-        length = c.getDetails().getFullName().length();
-        memcpy(buffer + size, c.getDetails().getFullName().c_str(), length);
+        length = c.getFirstName().length();
+        memcpy(buffer + size, c.getFirstName().c_str(), length);
         size += length;
         buffer[size++] = 0;
 
-        bool isOnlone = c.isOnline();
+        length = c.getLastName().length();
+        memcpy(buffer + size, c.getLastName().c_str(), length);
+        size += length;
+        buffer[size++] = 0;
+
+        //TODO: sent state
+        bool isOnlone = c.getState() == ONLINE;
         memcpy(buffer + size,&isOnlone,sizeof(bool));
         size++;
     }
@@ -87,8 +92,9 @@ void JNIChatClientListener::onContactsReceived(const Contacts& contacts)
 }
 
 
-void JNIChatClientListener::onContactOnlineStatusChanged(int  contactId,
-                                                         bool isOnline)
+void JNIChatClientListener::onContactStateChanged(int  contactId,
+                                                         CONTACT_STATE state)
 {
-    p_notifierProxy->notifyOnContactStatusChanged(contactId,isOnline);
+    //TODO: send enum
+    p_notifierProxy->notifyOnContactStatusChanged(contactId,state == ONLINE);
 }

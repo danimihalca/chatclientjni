@@ -7,6 +7,7 @@
 
 #include <android/log.h>
 
+#include <Model/User.hpp>
 
 /*
  * Class:     dm_chatclient_chatclient_ChatClientJNIProxy
@@ -25,17 +26,17 @@ JNIEXPORT jlong JNICALL Java_dm_chatclient_chatclient_ChatClientJNIProxy_createC
 
 /*
  * Class:     dm_chatclient_chatclient_ChatClientJNIProxy
- * Method:    setServerPropertiesNative
+ * Method:    connectNative
  * Signature: (JLjava/lang/String;I)V
  */
-JNIEXPORT void JNICALL Java_dm_chatclient_chatclient_ChatClientJNIProxy_setServerPropertiesNative
+JNIEXPORT void JNICALL Java_dm_chatclient_chatclient_ChatClientJNIProxy_connectNative
     (JNIEnv* env, jobject /*obj*/, jlong pointer, jstring address, jint port)
 {
     __android_log_write(ANDROID_LOG_INFO, "ChatClientNative", "setServerPropertiesNative");
 
     const char* addressCStr = (env)->GetStringUTFChars(address,0);
     IChatClient* chatClient = reinterpret_cast<IChatClient*>(pointer);
-    chatClient->setServerProperties(addressCStr,(uint16_t)port);
+    chatClient->connect(addressCStr,(uint16_t)port);
 
     (env)->ReleaseStringUTFChars(address, addressCStr);
 }
@@ -54,7 +55,9 @@ JNIEXPORT void JNICALL Java_dm_chatclient_chatclient_ChatClientJNIProxy_loginNat
     const char* passwordCStr = (env)->GetStringUTFChars(password,0);
 
     IChatClient* chatClient = reinterpret_cast<IChatClient*>(pointer);
-    chatClient->login(usernameCStr,passwordCStr);
+
+    UserCredentials userCredentials(usernameCStr,passwordCStr);
+    chatClient->login(userCredentials);
 
     (env)->ReleaseStringUTFChars(username, usernameCStr);
     (env)->ReleaseStringUTFChars(password, passwordCStr);
