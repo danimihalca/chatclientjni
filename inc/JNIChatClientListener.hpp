@@ -5,11 +5,13 @@
 
 #include <ChatClient/IChatClientListener.hpp>
 
+class JNIChatClientNotifierProxy;
+
 class JNIChatClientListener :
     public IChatClientListener
 {
 public:
-    JNIChatClientListener(JavaVM* javaVM, jobject& obj);
+    JNIChatClientListener(JNIChatClientNotifierProxy* notifierProxy);
     ~JNIChatClientListener();
 
     // Implements IChatClientListener interface
@@ -20,32 +22,12 @@ public:
     void onLoginSuccessful();
     void onLoginFailed(const std::string& message);
     void onConnectionError();
-
-private:
-    JNIEnv* getEnv();
-    jclass getCalledClass(JNIEnv* env);
-    void setOnMessageJavaMethod(JNIEnv* env, jclass javaClass);
-    void setOnConnectedJavaMethod(JNIEnv* env, jclass javaClass);
-    void setOnDisconnectedJavaMethod(JNIEnv* env, jclass javaClass);
-    void setOnLoginSuccesfullJavaMethod(JNIEnv* env, jclass javaClass);
-    void setOnConnectionErrorJavaMethod(JNIEnv* env, jclass javaClass);
-    void setOnLoginFailedJavaMethod(JNIEnv* env, jclass javaClass);
-    void setOnContactsReceivedJavaMethod(JNIEnv* env, jclass javaClass);
-private:
-    JavaVM* p_javaVM;
-    bool b_threadAttachedToEnv;
-    jobject m_calledJavaObject;
-    jmethodID m_onMessageJavaMethod;
-    jmethodID m_onConnectedJavaMethod;
-    jmethodID m_onDisconnectedJavaMethod;
-    jmethodID m_onLoginSuccesfullJavaMethod;
-    jmethodID m_onConnectionErrorJavaMethod;
-    jmethodID m_onLoginFailedJavaMethod;
-    jmethodID m_onContactsReceivedJavaMethod;
-
-    // IChatClientListener interface
-public:
+    void onContactOnlineStatusChanged(int contactId, bool isOnline);
     void onContactsReceived(const Contacts& contacts);
+
+private:
+    JNIChatClientNotifierProxy* p_notifierProxy;
+
 };
 
 #endif // JNICHATCLIENTLISTENER_H

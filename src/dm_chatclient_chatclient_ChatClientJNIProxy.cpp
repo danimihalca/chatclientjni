@@ -1,42 +1,39 @@
-#include "dm_chatclient_controller_NativeChatClientController.h"
+#include "dm_chatclient_chatclient_ChatClientJNIProxy.h"
 
 #include <ChatClient/IChatClient.hpp>
 #include <ChatClient/ChatClient.hpp>
-#include <chat_client_common.hpp>
 
 #include "JNIChatClientListener.hpp"
 
 #include <android/log.h>
 
-JavaVM* gJavaVM = NULL;
-
 
 /*
- * Class:     dm_chatclient_controller_NativeChatClientController
+ * Class:     dm_chatclient_chatclient_ChatClientJNIProxy
  * Method:    createClientNative
  * Signature: ()J
  */
-JNIEXPORT jlong JNICALL Java_dm_chatclient_controller_NativeChatClientController_createClientNative
+JNIEXPORT jlong JNICALL Java_dm_chatclient_chatclient_ChatClientJNIProxy_createClientNative
   (JNIEnv * env, jobject obj)
 {
     __android_log_write(ANDROID_LOG_INFO,
                         "ChatClientNative",
                         "createClientNative");
     IChatClient* chatClient = new ChatClient();
-    std::shared_ptr<IChatClientListener> listener(new JNIChatClientListener(
-                                                      gJavaVM,
-                                                      obj));
-    chatClient->addChatClientListener(listener);
+//    std::shared_ptr<IChatClientListener> listener(new JNIChatClientListener(
+//                                                      gJavaVM,
+//                                                      obj));
+//    chatClient->addListener(listener);
 
     return (long)chatClient;
 }
 
 /*
- * Class:     dm_chatclient_controller_NativeChatClientController
+ * Class:     dm_chatclient_chatclient_ChatClientJNIProxy
  * Method:    setServerPropertiesNative
  * Signature: (JLjava/lang/String;I)V
  */
-JNIEXPORT void JNICALL Java_dm_chatclient_controller_NativeChatClientController_setServerPropertiesNative
+JNIEXPORT void JNICALL Java_dm_chatclient_chatclient_ChatClientJNIProxy_setServerPropertiesNative
     (JNIEnv* env, jobject /*obj*/, jlong pointer, jstring address, jint port)
 {
     __android_log_write(ANDROID_LOG_INFO, "ChatClientNative", "setServerPropertiesNative");
@@ -49,11 +46,11 @@ JNIEXPORT void JNICALL Java_dm_chatclient_controller_NativeChatClientController_
 }
 
 /*
- * Class:     dm_chatclient_controller_NativeChatClientController
+ * Class:     dm_chatclient_chatclient_ChatClientJNIProxy
  * Method:    loginNative
  * Signature: (JLjava/lang/String;Ljava/lang/String;)V
  */
-JNIEXPORT void JNICALL Java_dm_chatclient_controller_NativeChatClientController_loginNative
+JNIEXPORT void JNICALL Java_dm_chatclient_chatclient_ChatClientJNIProxy_loginNative
     (JNIEnv* env, jobject /*obj*/, jlong pointer, jstring username, jstring password)
 {
     __android_log_write(ANDROID_LOG_INFO, "ChatClientNative", "loginNative");
@@ -70,11 +67,11 @@ JNIEXPORT void JNICALL Java_dm_chatclient_controller_NativeChatClientController_
 
 
 /*
- * Class:     dm_chatclient_controller_NativeChatClientController
+ * Class:     dm_chatclient_chatclient_ChatClientJNIProxy
  * Method:    disconnectNative
  * Signature: (J)V
  */
-JNIEXPORT void JNICALL Java_dm_chatclient_controller_NativeChatClientController_disconnectNative
+JNIEXPORT void JNICALL Java_dm_chatclient_chatclient_ChatClientJNIProxy_disconnectNative
     (JNIEnv* env, jobject /*obj*/, jlong pointer)
 {
     __android_log_write(ANDROID_LOG_INFO, "ChatClientNative",
@@ -84,11 +81,11 @@ JNIEXPORT void JNICALL Java_dm_chatclient_controller_NativeChatClientController_
 }
 
 /*
- * Class:     dm_chatclient_controller_NativeChatClientController
+ * Class:     dm_chatclient_chatclient_ChatClientJNIProxy
  * Method:    sendMessageNative
  * Signature: (JILjava/lang/String;)V
  */
-JNIEXPORT void JNICALL Java_dm_chatclient_controller_NativeChatClientController_sendMessageNative
+JNIEXPORT void JNICALL Java_dm_chatclient_chatclient_ChatClientJNIProxy_sendMessageNative
     (JNIEnv* env, jobject /*obj*/, jlong pointer, jint receiverId, jstring message)
 {
     __android_log_write(ANDROID_LOG_INFO,
@@ -101,11 +98,11 @@ JNIEXPORT void JNICALL Java_dm_chatclient_controller_NativeChatClientController_
 }
 
 /*
- * Class:     dm_chatclient_controller_NativeChatClientController
+ * Class:     dm_chatclient_chatclient_ChatClientJNIProxy
  * Method:    destroyClientNative
  * Signature: (J)V
  */
-JNIEXPORT void JNICALL Java_dm_chatclient_controller_NativeChatClientController_destroyClientNative
+JNIEXPORT void JNICALL Java_dm_chatclient_chatclient_ChatClientJNIProxy_destroyClientNative
     (JNIEnv* /*env*/, jobject /*obj*/, jlong pointer)
 {
     __android_log_write(ANDROID_LOG_INFO,
@@ -119,11 +116,11 @@ JNIEXPORT void JNICALL Java_dm_chatclient_controller_NativeChatClientController_
 }
 
 /*
- * Class:     dm_chatclient_controller_NativeChatClientController
+ * Class:     dm_chatclient_chatclient_ChatClientJNIProxy
  * Method:    requestContactsNative
  * Signature: (J)V
  */
-JNIEXPORT void JNICALL Java_dm_chatclient_controller_NativeChatClientController_requestContactsNative
+JNIEXPORT void JNICALL Java_dm_chatclient_chatclient_ChatClientJNIProxy_requestContactsNative
   (JNIEnv *env, jobject obj, jlong pointer)
 {
     __android_log_write(ANDROID_LOG_INFO, "ChatClientNative", "requestContactsNative");
@@ -132,10 +129,34 @@ JNIEXPORT void JNICALL Java_dm_chatclient_controller_NativeChatClientController_
     chatClient->getContacts();
 }
 
-
-JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM* jVm, void* /*aReserved*/)
+/*
+ * Class:     dm_chatclient_chatclient_ChatClientJNIProxy
+ * Method:    addListenerNative
+ * Signature: (JJ)V
+ */
+JNIEXPORT void JNICALL Java_dm_chatclient_chatclient_ChatClientJNIProxy_addListenerNative
+  (JNIEnv *, jobject, jlong chatClientPointer, jlong listenerPointer)
 {
-    gJavaVM = jVm;
+    IChatClient* chatClient = reinterpret_cast<IChatClient*>(chatClientPointer);
 
-    return JNI_VERSION_1_6;
+    IChatClientListener* listener =
+        reinterpret_cast<IChatClientListener*>(listenerPointer);
+
+    chatClient->addListener(listener);
+}
+
+/*
+ * Class:     dm_chatclient_chatclient_ChatClientJNIProxy
+ * Method:    removeListenerNative
+ * Signature: (JJ)V
+ */
+JNIEXPORT void JNICALL Java_dm_chatclient_chatclient_ChatClientJNIProxy_removeListenerNative
+  (JNIEnv *, jobject, jlong chatClientPointer, jlong listenerPointer)
+{
+    IChatClient* chatClient = reinterpret_cast<IChatClient*>(chatClientPointer);
+
+    IChatClientListener* listener =
+        reinterpret_cast<IChatClientListener*>(listenerPointer);
+
+    chatClient->removeListener(listener);
 }
