@@ -19,9 +19,9 @@ enum CALLBACK_METHOD
 
 const char* const METHOD_SIGNATURE_VOID = "()V";
 const char* const METHOD_SIGNATURE_VOID_STRING = "(Ljava/lang/String;)V";
-const char* const METHOD_SIGNATURE_VOID_BYTEARRAY = "([BI)V";
-const char* const METHOD_SIGNATURE_VOID_INT_BOOL = "(IZ)V";
+const char* const METHOD_SIGNATURE_VOID_INT_BYTE = "(IB)V";
 const char* const METHOD_SIGNATURE_VOID_INT_STRING = "(ILjava/lang/String;)V";
+const char* const METHOD_SIGNATURE_VOID_BYTEARRAY_INT = "([BI)V";
 
 class JNIChatClientNotifierProxy
 {
@@ -38,7 +38,7 @@ public:
     void notifyOnLoginSuccessful();
     void notifyOnLoginFailed(const std::string& reason);
     void notifyOnContactsReceived(const char* contactsByteBuffer, int size);
-    void notifyOnContactStatusChanged(int contactId, bool isOnline);
+    void notifyOnContactStatusChanged(int contactId, char state);
     void notifyOnMessageReceived(int senderId, const std::string& message);
 
 

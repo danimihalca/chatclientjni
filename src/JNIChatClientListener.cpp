@@ -82,8 +82,8 @@ void JNIChatClientListener::onContactsReceived(const std::vector<Contact>& conta
         buffer[size++] = 0;
 
         //TODO: sent state
-        bool isOnlone = c.getState() == ONLINE;
-        memcpy(buffer + size,&isOnlone,sizeof(bool));
+        char state = static_cast<char>(c.getState());
+        memcpy(buffer + size,&state,sizeof(char));
         size++;
     }
     LOG_DEBUG("Size:%d\n",size);
@@ -96,5 +96,5 @@ void JNIChatClientListener::onContactStateChanged(int  contactId,
                                                          CONTACT_STATE state)
 {
     //TODO: send enum
-    p_notifierProxy->notifyOnContactStatusChanged(contactId,state == ONLINE);
+    p_notifierProxy->notifyOnContactStatusChanged(contactId, static_cast<char>(state));
 }

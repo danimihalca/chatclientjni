@@ -70,7 +70,7 @@ void JNIChatClientNotifierProxy::setMethodCallback(
         {
             setMethod(m_onContactStatusChangedJavaMethod,
                       methodName,
-                      METHOD_SIGNATURE_VOID_INT_BOOL);
+                      METHOD_SIGNATURE_VOID_INT_BYTE);
             break;
         }
 
@@ -86,7 +86,7 @@ void JNIChatClientNotifierProxy::setMethodCallback(
         {
             setMethod(m_onContactsReceivedJavaMethod,
                       methodName,
-                      METHOD_SIGNATURE_VOID_BYTEARRAY);
+                      METHOD_SIGNATURE_VOID_BYTEARRAY_INT);
             break;
         }
     }
@@ -157,14 +157,14 @@ void JNIChatClientNotifierProxy::notifyOnContactsReceived(
 }
 
 void JNIChatClientNotifierProxy::notifyOnContactStatusChanged(int  contactId,
-                                                              bool isOnline)
+                                                              char state)
 {
     JNIEnv* env = getJavaEnvironment();
 
     env->CallVoidMethod(m_actualNotifierObject,
                         m_onContactStatusChangedJavaMethod,
                         (jint)contactId,
-                        (jboolean)isOnline);
+                        (jbyte)state);
     tryDetachThread();
 }
 
