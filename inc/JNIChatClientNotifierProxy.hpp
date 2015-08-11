@@ -35,7 +35,7 @@ public:
     void notifyOnConnected();
     void notifyOnDisconnected();
     void notifyOnConnectionError();
-    void notifyOnLoginSuccessful();
+    void notifyOnLoginSuccessful(const char* userDetailsByteBuffer, int size);
     void notifyOnLoginFailed(const std::string& reason);
     void notifyOnContactsReceived(const char* contactsByteBuffer, int size);
     void notifyOnContactStatusChanged(int contactId, char state);

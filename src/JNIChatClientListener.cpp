@@ -35,7 +35,26 @@ void JNIChatClientListener::onDisconnected()
 
 void JNIChatClientListener::onLoginSuccessful(const UserDetails& userDetails)
 {
-    p_notifierProxy->notifyOnLoginSuccessful();
+
+    int size = 0;
+
+    char buffer[10000];
+
+    int id = userDetails.getId();
+    memcpy(buffer + size, &id, sizeof(int));
+    size += sizeof(int);
+
+    size_t length = userDetails.getFirstName().length();
+    memcpy(buffer + size, userDetails.getFirstName().c_str(), length);
+    size += length;
+    buffer[size++] = 0;
+
+    length = userDetails.getLastName().length();
+    memcpy(buffer + size, userDetails.getLastName().c_str(), length);
+    size += length;
+    buffer[size++] = 0;
+
+    p_notifierProxy->notifyOnLoginSuccessful(buffer, size);
 
 }
 
@@ -81,7 +100,6 @@ void JNIChatClientListener::onContactsReceived(const std::vector<Contact>& conta
         size += length;
         buffer[size++] = 0;
 
-        //TODO: sent state
         char state = static_cast<char>(c.getState());
         memcpy(buffer + size,&state,sizeof(char));
         size++;

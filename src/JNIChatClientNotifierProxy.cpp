@@ -54,7 +54,7 @@ void JNIChatClientNotifierProxy::setMethodCallback(
         {
             setMethod(m_onLoginSuccesfulJavaMethod,
                       methodName,
-                      METHOD_SIGNATURE_VOID);
+                      METHOD_SIGNATURE_VOID_BYTEARRAY_INT);
             break;
         }
 
@@ -116,12 +116,24 @@ void JNIChatClientNotifierProxy::notifyOnConnectionError()
     tryDetachThread();
 }
 
-void JNIChatClientNotifierProxy::notifyOnLoginSuccessful()
+void JNIChatClientNotifierProxy::notifyOnLoginSuccessful(    const char* userDetailsByteBuffer,
+                                                             int         size)
 {
     JNIEnv* env = getJavaEnvironment();
-    env->CallVoidMethod(m_actualNotifierObject,m_onLoginSuccesfulJavaMethod);
+
+    jbyteArray jByteArray = env->NewByteArray(size);
+    char* bytes = (char*)env->GetByteArrayElements(jByteArray, 0);
+    memcpy(bytes,userDetailsByteBuffer,size);
+    env->ReleaseByteArrayElements(jByteArray, (jbyte*) bytes, JNI_COMMIT);
+
+
+    env->CallVoidMethod(m_actualNotifierObject,
+                        m_onLoginSuccesfulJavaMethod,
+                        jByteArray,
+                        (jint)size);
 
     tryDetachThread();
+
 }
 
 void JNIChatClientNotifierProxy::notifyOnLoginFailed(const std::string& reason)
