@@ -28,6 +28,10 @@ public:
     void onContactStateChanged(int contactId, CONTACT_STATE state);
     void onContactsReceived(const std::vector<Contact>& contacts);
 
+    void onRemovedByContact(int contactId);
+    void onAddContactResponse(const std::string& userName, bool accepted);
+    bool onAddingByContact(const std::string& requester);
+
 private:
     JNIChatClientNotifierProxy* p_notifierProxy;
 

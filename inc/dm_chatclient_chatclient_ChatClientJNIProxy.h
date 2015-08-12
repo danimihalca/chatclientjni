@@ -79,6 +79,22 @@ JNIEXPORT void JNICALL Java_dm_chatclient_chatclient_ChatClientJNIProxy_addListe
 JNIEXPORT void JNICALL Java_dm_chatclient_chatclient_ChatClientJNIProxy_removeListenerNative
   (JNIEnv *, jobject, jlong, jlong);
 
+/*
+ * Class:     dm_chatclient_chatclient_ChatClientJNIProxy
+ * Method:    removeContactNative
+ * Signature: (JI)V
+ */
+JNIEXPORT void JNICALL Java_dm_chatclient_chatclient_ChatClientJNIProxy_removeContactNative
+  (JNIEnv *, jobject, jlong, jint);
+
+/*
+ * Class:     dm_chatclient_chatclient_ChatClientJNIProxy
+ * Method:    addContactNative
+ * Signature: (JLjava/lang/String;Ljava/lang/String;)V
+ */
+JNIEXPORT void JNICALL Java_dm_chatclient_chatclient_ChatClientJNIProxy_addContactNative
+  (JNIEnv *, jobject, jlong, jstring);
+
 #ifdef __cplusplus
 }
 #endif

@@ -124,7 +124,7 @@ JNIEXPORT void JNICALL Java_dm_chatclient_chatclient_ChatClientJNIProxy_requestC
     __android_log_write(ANDROID_LOG_INFO, "ChatClientNative", "requestContactsNative");
 
     IChatClient* chatClient = reinterpret_cast<IChatClient*>(pointer);
-    chatClient->getContacts();
+    chatClient->requestContacts();
 }
 
 /*
@@ -157,4 +157,34 @@ JNIEXPORT void JNICALL Java_dm_chatclient_chatclient_ChatClientJNIProxy_removeLi
         reinterpret_cast<IChatClientListener*>(listenerPointer);
 
     chatClient->removeListener(listener);
+}
+
+
+/*
+ * Class:     dm_chatclient_chatclient_ChatClientJNIProxy
+ * Method:    removeContactNative
+ * Signature: (JI)V
+ */
+JNIEXPORT void JNICALL Java_dm_chatclient_chatclient_ChatClientJNIProxy_removeContactNative
+  (JNIEnv *, jobject, jlong chatClientPointer, jint contactId)
+{
+    IChatClient* chatClient = reinterpret_cast<IChatClient*>(chatClientPointer);
+
+    chatClient->removeContact((int) contactId);
+}
+
+/*
+ * Class:     dm_chatclient_chatclient_ChatClientJNIProxy
+ * Method:    addContactNative
+ * Signature: (JLjava/lang/String;Ljava/lang/String;)V
+ */
+JNIEXPORT void JNICALL Java_dm_chatclient_chatclient_ChatClientJNIProxy_addContactNative
+  (JNIEnv *env, jobject, jlong chatClientPointer, jstring jUserName)
+{
+    IChatClient* chatClient = reinterpret_cast<IChatClient*>(chatClientPointer);
+    const char* userName = (env)->GetStringUTFChars(jUserName,0);
+
+    chatClient->addContact(userName);
+
+    (env)->ReleaseStringUTFChars(jUserName, userName);
 }

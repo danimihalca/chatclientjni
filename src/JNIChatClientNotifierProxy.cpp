@@ -2,11 +2,14 @@
 
 #include <android/log.h>
 
+#include <debug_utils/log_debug.hpp>
+
 JNIChatClientNotifierProxy::JNIChatClientNotifierProxy(JavaVM*  javaVM,
                                                        jobject& obj) :
     p_javaVM(javaVM),
     b_threadAttachedToEnv(false)
 {
+    LOG_DEBUG_METHOD;
     JNIEnv* env = getJavaEnvironment();
 
     m_actualNotifierObject = env->NewGlobalRef(obj);
@@ -14,6 +17,7 @@ JNIChatClientNotifierProxy::JNIChatClientNotifierProxy(JavaVM*  javaVM,
 
 JNIChatClientNotifierProxy::~JNIChatClientNotifierProxy()
 {
+    LOG_DEBUG_METHOD;
     JNIEnv* env = getJavaEnvironment();
     env->DeleteGlobalRef(m_actualNotifierObject);
 
@@ -24,8 +28,10 @@ void JNIChatClientNotifierProxy::setMethodCallback(
     CALLBACK_METHOD    callbackMethod,
     const std::string& methodName)
 {
+    LOG_DEBUG_METHOD;
     switch (callbackMethod)
     {
+
         case ON_CONNECTED:
         {
             setMethod(m_onConnectedJavaMethod,
@@ -89,11 +95,36 @@ void JNIChatClientNotifierProxy::setMethodCallback(
                       METHOD_SIGNATURE_VOID_BYTEARRAY_INT);
             break;
         }
+
+        case ON_REMOVED_BY_CONTACT:
+        {
+            setMethod(m_onRemovedByContactJavaMethod,
+                      methodName,
+                      METHOD_SIGNATURE_VOID_INT);
+            break;
+        }
+
+        case ON_ADD_CONTACT_RESPONSE:
+        {
+            setMethod(m_onAddContactResponseJavaMethod,
+                      methodName,
+                      METHOD_SIGNATURE_VOID_STRING_BOOL);
+            break;
+        }
+
+        case ON_ADDING_BY_CONTACT:
+        {
+            setMethod(m_onAddingByContactJavaMethod,
+                      methodName,
+                      METHOD_SIGNATURE_BOOL_STRING);
+            break;
+        }
     }
 }
 
 void JNIChatClientNotifierProxy::notifyOnConnected()
 {
+    LOG_DEBUG_METHOD;
     JNIEnv* env = getJavaEnvironment();
     env->CallVoidMethod(m_actualNotifierObject,m_onConnectedJavaMethod);
 
@@ -102,6 +133,7 @@ void JNIChatClientNotifierProxy::notifyOnConnected()
 
 void JNIChatClientNotifierProxy::notifyOnDisconnected()
 {
+    LOG_DEBUG_METHOD;
     JNIEnv* env = getJavaEnvironment();
     env->CallVoidMethod(m_actualNotifierObject,m_onDisconnectedJavaMethod);
 
@@ -110,15 +142,18 @@ void JNIChatClientNotifierProxy::notifyOnDisconnected()
 
 void JNIChatClientNotifierProxy::notifyOnConnectionError()
 {
+    LOG_DEBUG_METHOD;
     JNIEnv* env = getJavaEnvironment();
     env->CallVoidMethod(m_actualNotifierObject,m_onConnectionErrorJavaMethod);
 
     tryDetachThread();
 }
 
-void JNIChatClientNotifierProxy::notifyOnLoginSuccessful(    const char* userDetailsByteBuffer,
-                                                             int         size)
+void JNIChatClientNotifierProxy::notifyOnLoginSuccessful(
+    const char* userDetailsByteBuffer,
+    int         size)
 {
+    LOG_DEBUG_METHOD;
     JNIEnv* env = getJavaEnvironment();
 
     jbyteArray jByteArray = env->NewByteArray(size);
@@ -138,20 +173,23 @@ void JNIChatClientNotifierProxy::notifyOnLoginSuccessful(    const char* userDet
 
 void JNIChatClientNotifierProxy::notifyOnLoginFailed(const std::string& reason)
 {
+    LOG_DEBUG_METHOD;
     JNIEnv* env = getJavaEnvironment();
 
     jstring jReason = env->NewStringUTF(reason.c_str());
     env->CallVoidMethod(m_actualNotifierObject,
                         m_onLoginFailedJavaMethod,
                         jReason);
-
+    LOG_DEBUG_METHOD;
     tryDetachThread();
+    LOG_DEBUG_METHOD;
 }
 
 void JNIChatClientNotifierProxy::notifyOnContactsReceived(
     const char* contactsByteBuffer,
     int         size)
 {
+    LOG_DEBUG_METHOD;
     JNIEnv* env = getJavaEnvironment();
 
     jbyteArray jByteArray = env->NewByteArray(size);
@@ -171,6 +209,7 @@ void JNIChatClientNotifierProxy::notifyOnContactsReceived(
 void JNIChatClientNotifierProxy::notifyOnContactStatusChanged(int  contactId,
                                                               char state)
 {
+    LOG_DEBUG_METHOD;
     JNIEnv* env = getJavaEnvironment();
 
     env->CallVoidMethod(m_actualNotifierObject,
@@ -184,6 +223,7 @@ void JNIChatClientNotifierProxy::notifyOnMessageReceived(
     int                senderId,
     const std::string& message)
 {
+    LOG_DEBUG_METHOD;
     JNIEnv* env = getJavaEnvironment();
 
     jstring jMessage = env->NewStringUTF(message.c_str());
@@ -193,6 +233,47 @@ void JNIChatClientNotifierProxy::notifyOnMessageReceived(
                         jMessage);
 
     tryDetachThread();
+}
+
+void JNIChatClientNotifierProxy::notifyOnRemovedByContact(int contactId)
+{
+    LOG_DEBUG_METHOD;
+    JNIEnv* env = getJavaEnvironment();
+
+    env->CallVoidMethod(m_actualNotifierObject,
+                        m_onRemovedByContactJavaMethod,
+                        (jint)contactId);
+    tryDetachThread();
+}
+
+void JNIChatClientNotifierProxy::notifyOnAddContactResponse(
+    const std::string& userName,
+    bool               accepted)
+{
+    LOG_DEBUG_METHOD;
+    JNIEnv* env = getJavaEnvironment();
+    jstring jUserName = env->NewStringUTF(userName.c_str());
+
+    env->CallVoidMethod(m_actualNotifierObject,
+                        m_onAddContactResponseJavaMethod,
+                        jUserName,
+                        (jboolean)accepted);
+    tryDetachThread();
+}
+
+bool JNIChatClientNotifierProxy::notifyOnAddingByContact(
+    const std::string& requester)
+{
+    LOG_DEBUG_METHOD;
+    JNIEnv* env = getJavaEnvironment();
+    jstring jUserName = env->NewStringUTF(requester.c_str());
+
+    jboolean jAccepted = env->CallBooleanMethod(m_actualNotifierObject,
+                        m_onAddingByContactJavaMethod,
+                        jUserName);
+    bool accepted = jAccepted != 0;
+    tryDetachThread();
+    return  accepted;
 }
 
 JNIEnv* JNIChatClientNotifierProxy::getJavaEnvironment()
@@ -232,8 +313,10 @@ void JNIChatClientNotifierProxy::setMethod(jmethodID&         javaMethod,
                                            const std::string& methodName,
                                            const std::string& methodSignature)
 {
+    LOG_DEBUG_METHOD;
     JNIEnv* javaEnvironment = getJavaEnvironment();
-    jclass actualNotifierClass = javaEnvironment->GetObjectClass(m_actualNotifierObject);
+    jclass actualNotifierClass = javaEnvironment->GetObjectClass(
+        m_actualNotifierObject);
     javaMethod = javaEnvironment->GetMethodID(actualNotifierClass,
                                               methodName.c_str(),
                                               methodSignature.c_str());

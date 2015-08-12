@@ -60,7 +60,9 @@ void JNIChatClientListener::onLoginSuccessful(const UserDetails& userDetails)
 
 void JNIChatClientListener::onLoginFailed(const std::string& message)
 {
+    LOG_DEBUG_METHOD;
     p_notifierProxy->notifyOnLoginFailed(message);
+    LOG_DEBUG_METHOD;
 
 }
 
@@ -107,6 +109,21 @@ void JNIChatClientListener::onContactsReceived(const std::vector<Contact>& conta
     LOG_DEBUG("Size:%d\n",size);
 
     p_notifierProxy->notifyOnContactsReceived(buffer, size);
+}
+
+void JNIChatClientListener::onRemovedByContact(int contactId)
+{
+    p_notifierProxy->notifyOnRemovedByContact(contactId);
+}
+
+void JNIChatClientListener::onAddContactResponse(const std::string& userName, bool accepted)
+{
+    p_notifierProxy->notifyOnAddContactResponse(userName,accepted);
+}
+
+bool JNIChatClientListener::onAddingByContact(const std::string& requester)
+{
+    return p_notifierProxy->notifyOnAddingByContact(requester);
 }
 
 
