@@ -103,6 +103,23 @@ JNIEXPORT void JNICALL Java_dm_chatclient_chatclient_ChatClientJNIProxy_addConta
 JNIEXPORT void JNICALL Java_dm_chatclient_chatclient_ChatClientJNIProxy_changeStateNative
   (JNIEnv *, jobject, jlong, jint);
 
+/*
+ * Class:     dm_chatclient_chatclient_ChatClientJNIProxy
+ * Method:    registerUserNative
+ * Signature: (JLjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+ */
+JNIEXPORT void JNICALL Java_dm_chatclient_chatclient_ChatClientJNIProxy_registerUserNative
+  (JNIEnv *, jobject, jlong, jstring, jstring, jstring, jstring);
+
+/*
+ * Class:     dm_chatclient_chatclient_ChatClientJNIProxy
+ * Method:    updateUserNative
+ * Signature: (JLjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+ */
+JNIEXPORT void JNICALL Java_dm_chatclient_chatclient_ChatClientJNIProxy_updateUserNative
+  (JNIEnv *, jobject, jlong, jstring, jstring, jstring, jstring);
+
+
 #ifdef __cplusplus
 }
 #endif

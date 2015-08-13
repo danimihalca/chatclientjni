@@ -14,8 +14,9 @@
  * Method:    createClientNative
  * Signature: ()J
  */
-JNIEXPORT jlong JNICALL Java_dm_chatclient_chatclient_ChatClientJNIProxy_createClientNative
-  (JNIEnv * env, jobject obj)
+JNIEXPORT jlong JNICALL
+Java_dm_chatclient_chatclient_ChatClientJNIProxy_createClientNative
+    (JNIEnv* env, jobject obj)
 {
     __android_log_write(ANDROID_LOG_INFO,
                         "ChatClientNative",
@@ -29,10 +30,13 @@ JNIEXPORT jlong JNICALL Java_dm_chatclient_chatclient_ChatClientJNIProxy_createC
  * Method:    connectNative
  * Signature: (JLjava/lang/String;I)V
  */
-JNIEXPORT void JNICALL Java_dm_chatclient_chatclient_ChatClientJNIProxy_connectNative
+JNIEXPORT void JNICALL
+Java_dm_chatclient_chatclient_ChatClientJNIProxy_connectNative
     (JNIEnv* env, jobject /*obj*/, jlong pointer, jstring address, jint port)
 {
-    __android_log_write(ANDROID_LOG_INFO, "ChatClientNative", "setServerPropertiesNative");
+    __android_log_write(ANDROID_LOG_INFO,
+                        "ChatClientNative",
+                        "setServerPropertiesNative");
 
     const char* addressCStr = (env)->GetStringUTFChars(address,0);
     IChatClient* chatClient = reinterpret_cast<IChatClient*>(pointer);
@@ -46,8 +50,14 @@ JNIEXPORT void JNICALL Java_dm_chatclient_chatclient_ChatClientJNIProxy_connectN
  * Method:    loginNative
  * Signature: (JLjava/lang/String;Ljava/lang/String;I)V
  */
-JNIEXPORT void JNICALL Java_dm_chatclient_chatclient_ChatClientJNIProxy_loginNative
-    (JNIEnv* env, jobject /*obj*/, jlong pointer, jstring username, jstring password, jint state)
+JNIEXPORT void JNICALL
+Java_dm_chatclient_chatclient_ChatClientJNIProxy_loginNative
+    (JNIEnv* env,
+    jobject /*obj*/,
+    jlong    pointer,
+    jstring  username,
+    jstring  password,
+    jint     state)
 {
     __android_log_write(ANDROID_LOG_INFO, "ChatClientNative", "loginNative");
 
@@ -69,7 +79,8 @@ JNIEXPORT void JNICALL Java_dm_chatclient_chatclient_ChatClientJNIProxy_loginNat
  * Method:    disconnectNative
  * Signature: (J)V
  */
-JNIEXPORT void JNICALL Java_dm_chatclient_chatclient_ChatClientJNIProxy_disconnectNative
+JNIEXPORT void JNICALL
+Java_dm_chatclient_chatclient_ChatClientJNIProxy_disconnectNative
     (JNIEnv* env, jobject /*obj*/, jlong pointer)
 {
     __android_log_write(ANDROID_LOG_INFO, "ChatClientNative",
@@ -83,8 +94,13 @@ JNIEXPORT void JNICALL Java_dm_chatclient_chatclient_ChatClientJNIProxy_disconne
  * Method:    sendMessageNative
  * Signature: (JILjava/lang/String;)V
  */
-JNIEXPORT void JNICALL Java_dm_chatclient_chatclient_ChatClientJNIProxy_sendMessageNative
-    (JNIEnv* env, jobject /*obj*/, jlong pointer, jint receiverId, jstring message)
+JNIEXPORT void JNICALL
+Java_dm_chatclient_chatclient_ChatClientJNIProxy_sendMessageNative
+    (JNIEnv* env,
+    jobject /*obj*/,
+    jlong    pointer,
+    jint     receiverId,
+    jstring  message)
 {
     __android_log_write(ANDROID_LOG_INFO,
                         "ChatClientNative",
@@ -100,7 +116,8 @@ JNIEXPORT void JNICALL Java_dm_chatclient_chatclient_ChatClientJNIProxy_sendMess
  * Method:    destroyClientNative
  * Signature: (J)V
  */
-JNIEXPORT void JNICALL Java_dm_chatclient_chatclient_ChatClientJNIProxy_destroyClientNative
+JNIEXPORT void JNICALL
+Java_dm_chatclient_chatclient_ChatClientJNIProxy_destroyClientNative
     (JNIEnv* /*env*/, jobject /*obj*/, jlong pointer)
 {
     __android_log_write(ANDROID_LOG_INFO,
@@ -118,10 +135,13 @@ JNIEXPORT void JNICALL Java_dm_chatclient_chatclient_ChatClientJNIProxy_destroyC
  * Method:    requestContactsNative
  * Signature: (J)V
  */
-JNIEXPORT void JNICALL Java_dm_chatclient_chatclient_ChatClientJNIProxy_requestContactsNative
-  (JNIEnv *env, jobject obj, jlong pointer)
+JNIEXPORT void JNICALL
+Java_dm_chatclient_chatclient_ChatClientJNIProxy_requestContactsNative
+    (JNIEnv* env, jobject obj, jlong pointer)
 {
-    __android_log_write(ANDROID_LOG_INFO, "ChatClientNative", "requestContactsNative");
+    __android_log_write(ANDROID_LOG_INFO,
+                        "ChatClientNative",
+                        "requestContactsNative");
 
     IChatClient* chatClient = reinterpret_cast<IChatClient*>(pointer);
     chatClient->requestContacts();
@@ -132,8 +152,9 @@ JNIEXPORT void JNICALL Java_dm_chatclient_chatclient_ChatClientJNIProxy_requestC
  * Method:    addListenerNative
  * Signature: (JJ)V
  */
-JNIEXPORT void JNICALL Java_dm_chatclient_chatclient_ChatClientJNIProxy_addListenerNative
-  (JNIEnv *, jobject, jlong chatClientPointer, jlong listenerPointer)
+JNIEXPORT void JNICALL
+Java_dm_chatclient_chatclient_ChatClientJNIProxy_addListenerNative
+    (JNIEnv*, jobject, jlong chatClientPointer, jlong listenerPointer)
 {
     IChatClient* chatClient = reinterpret_cast<IChatClient*>(chatClientPointer);
 
@@ -148,8 +169,9 @@ JNIEXPORT void JNICALL Java_dm_chatclient_chatclient_ChatClientJNIProxy_addListe
  * Method:    removeListenerNative
  * Signature: (JJ)V
  */
-JNIEXPORT void JNICALL Java_dm_chatclient_chatclient_ChatClientJNIProxy_removeListenerNative
-  (JNIEnv *, jobject, jlong chatClientPointer, jlong listenerPointer)
+JNIEXPORT void JNICALL
+Java_dm_chatclient_chatclient_ChatClientJNIProxy_removeListenerNative
+    (JNIEnv*, jobject, jlong chatClientPointer, jlong listenerPointer)
 {
     IChatClient* chatClient = reinterpret_cast<IChatClient*>(chatClientPointer);
 
@@ -165,8 +187,9 @@ JNIEXPORT void JNICALL Java_dm_chatclient_chatclient_ChatClientJNIProxy_removeLi
  * Method:    removeContactNative
  * Signature: (JI)V
  */
-JNIEXPORT void JNICALL Java_dm_chatclient_chatclient_ChatClientJNIProxy_removeContactNative
-  (JNIEnv *, jobject, jlong chatClientPointer, jint contactId)
+JNIEXPORT void JNICALL
+Java_dm_chatclient_chatclient_ChatClientJNIProxy_removeContactNative
+    (JNIEnv*, jobject, jlong chatClientPointer, jint contactId)
 {
     IChatClient* chatClient = reinterpret_cast<IChatClient*>(chatClientPointer);
 
@@ -178,8 +201,9 @@ JNIEXPORT void JNICALL Java_dm_chatclient_chatclient_ChatClientJNIProxy_removeCo
  * Method:    addContactNative
  * Signature: (JLjava/lang/String;Ljava/lang/String;)V
  */
-JNIEXPORT void JNICALL Java_dm_chatclient_chatclient_ChatClientJNIProxy_addContactNative
-  (JNIEnv *env, jobject, jlong chatClientPointer, jstring jUserName)
+JNIEXPORT void JNICALL
+Java_dm_chatclient_chatclient_ChatClientJNIProxy_addContactNative
+    (JNIEnv* env, jobject, jlong chatClientPointer, jstring jUserName)
 {
     IChatClient* chatClient = reinterpret_cast<IChatClient*>(chatClientPointer);
     const char* userName = (env)->GetStringUTFChars(jUserName,0);
@@ -195,8 +219,61 @@ JNIEXPORT void JNICALL Java_dm_chatclient_chatclient_ChatClientJNIProxy_addConta
  * Signature: (JI)V
  */
 void Java_dm_chatclient_chatclient_ChatClientJNIProxy_changeStateNative
-(JNIEnv*, jobject, jlong chatClientPointer, jint state)
+    (JNIEnv*, jobject, jlong chatClientPointer, jint state)
 {
     IChatClient* chatClient = reinterpret_cast<IChatClient*>(chatClientPointer);
     chatClient->changeState(static_cast<USER_STATE>(state));
+}
+
+
+void Java_dm_chatclient_chatclient_ChatClientJNIProxy_registerUserNative
+    (JNIEnv* env,
+    jobject,
+    jlong   chatClientPointer,
+    jstring jusername,
+    jstring jpassword,
+    jstring jfirstname,
+    jstring jlastname)
+{
+    IChatClient* chatClient = reinterpret_cast<IChatClient*>(chatClientPointer);
+
+    const char* username = (env)->GetStringUTFChars(jusername,0);
+    const char* password = (env)->GetStringUTFChars(jpassword,0);
+    const char* firstname = (env)->GetStringUTFChars(jfirstname,0);
+    const char* lastname = (env)->GetStringUTFChars(jlastname,0);
+
+    User user(-1, username,password,firstname,lastname);
+    chatClient->registerUser(user);
+
+    (env)->ReleaseStringUTFChars(jusername, username);
+    (env)->ReleaseStringUTFChars(jpassword, password);
+    (env)->ReleaseStringUTFChars(jfirstname, firstname);
+    (env)->ReleaseStringUTFChars(jlastname, lastname);
+
+}
+
+
+void Java_dm_chatclient_chatclient_ChatClientJNIProxy_updateUserNative
+(JNIEnv* env,
+jobject,
+jlong   chatClientPointer,
+jstring jusername,
+jstring jpassword,
+jstring jfirstname,
+jstring jlastname)
+{
+    IChatClient* chatClient = reinterpret_cast<IChatClient*>(chatClientPointer);
+
+    const char* username = (env)->GetStringUTFChars(jusername,0);
+    const char* password = (env)->GetStringUTFChars(jpassword,0);
+    const char* firstname = (env)->GetStringUTFChars(jfirstname,0);
+    const char* lastname = (env)->GetStringUTFChars(jlastname,0);
+
+    User user(-1, username,password,firstname,lastname);
+    chatClient->updateUser(user);
+
+    (env)->ReleaseStringUTFChars(jusername, username);
+    (env)->ReleaseStringUTFChars(jpassword, password);
+    (env)->ReleaseStringUTFChars(jfirstname, firstname);
+    (env)->ReleaseStringUTFChars(jlastname, lastname);
 }
