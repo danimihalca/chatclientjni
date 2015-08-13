@@ -23,14 +23,16 @@ public:
     void onConnected();
     void onDisconnected();
     void onLoginSuccessful(const UserDetails& userDetails);
-    void onLoginFailed(const std::string& message);
+    void onLoginFailed(AUTH_STATUS reason);
     void onConnectionError();
-    void onContactStateChanged(int contactId, CONTACT_STATE state);
+    void onContactStateChanged(int contactId, USER_STATE state);
     void onContactsReceived(const std::vector<Contact>& contacts);
 
     void onRemovedByContact(int contactId);
-    void onAddContactResponse(const std::string& userName, bool accepted);
+    void onAddContactResponse(const std::string& userName,  ADD_STATUS status);
     bool onAddingByContact(const std::string& requester);
+
+    void onRegisterUpdateResponse(REGISTER_UPDATE_USER_STATUS status);
 
 private:
     JNIChatClientNotifierProxy* p_notifierProxy;

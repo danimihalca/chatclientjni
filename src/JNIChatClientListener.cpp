@@ -58,10 +58,10 @@ void JNIChatClientListener::onLoginSuccessful(const UserDetails& userDetails)
 
 }
 
-void JNIChatClientListener::onLoginFailed(const std::string& message)
+void JNIChatClientListener::onLoginFailed(AUTH_STATUS reason)
 {
     LOG_DEBUG_METHOD;
-    p_notifierProxy->notifyOnLoginFailed(message);
+    p_notifierProxy->notifyOnLoginFailed(static_cast<char>(reason));
     LOG_DEBUG_METHOD;
 
 }
@@ -116,9 +116,9 @@ void JNIChatClientListener::onRemovedByContact(int contactId)
     p_notifierProxy->notifyOnRemovedByContact(contactId);
 }
 
-void JNIChatClientListener::onAddContactResponse(const std::string& userName, bool accepted)
+void JNIChatClientListener::onAddContactResponse(const std::string& userName, ADD_STATUS status)
 {
-    p_notifierProxy->notifyOnAddContactResponse(userName,accepted);
+    p_notifierProxy->notifyOnAddContactResponse(userName,static_cast<char>(status));
 }
 
 bool JNIChatClientListener::onAddingByContact(const std::string& requester)
@@ -126,10 +126,14 @@ bool JNIChatClientListener::onAddingByContact(const std::string& requester)
     return p_notifierProxy->notifyOnAddingByContact(requester);
 }
 
+void JNIChatClientListener::onRegisterUpdateResponse(REGISTER_UPDATE_USER_STATUS status)
+{
+    p_notifierProxy->notifyOnRegisterUpdateResponse(static_cast<char>(status));
+}
+
 
 void JNIChatClientListener::onContactStateChanged(int  contactId,
-                                                         CONTACT_STATE state)
+                                                         USER_STATE state)
 {
-    //TODO: send enum
     p_notifierProxy->notifyOnContactStatusChanged(contactId, static_cast<char>(state));
 }

@@ -68,7 +68,7 @@ void JNIChatClientNotifierProxy::setMethodCallback(
         {
             setMethod(m_onLoginFailedJavaMethod,
                       methodName,
-                      METHOD_SIGNATURE_VOID_STRING);
+                      METHOD_SIGNATURE_VOID_BYTE);
             break;
         }
 
@@ -108,7 +108,7 @@ void JNIChatClientNotifierProxy::setMethodCallback(
         {
             setMethod(m_onAddContactResponseJavaMethod,
                       methodName,
-                      METHOD_SIGNATURE_VOID_STRING_BOOL);
+                      METHOD_SIGNATURE_VOID_STRING_BYTE);
             break;
         }
 
@@ -117,6 +117,13 @@ void JNIChatClientNotifierProxy::setMethodCallback(
             setMethod(m_onAddingByContactJavaMethod,
                       methodName,
                       METHOD_SIGNATURE_BOOL_STRING);
+            break;
+        }
+        case ON_REGISTER_UPDATE_RESPONSE:
+        {
+            setMethod(m_onRegisterUpdateResponseJavaMethod,
+                      methodName,
+                      METHOD_SIGNATURE_VOID_BYTE);
             break;
         }
     }
@@ -171,15 +178,14 @@ void JNIChatClientNotifierProxy::notifyOnLoginSuccessful(
 
 }
 
-void JNIChatClientNotifierProxy::notifyOnLoginFailed(const std::string& reason)
+void JNIChatClientNotifierProxy::notifyOnLoginFailed(char reason)
 {
     LOG_DEBUG_METHOD;
     JNIEnv* env = getJavaEnvironment();
 
-    jstring jReason = env->NewStringUTF(reason.c_str());
     env->CallVoidMethod(m_actualNotifierObject,
                         m_onLoginFailedJavaMethod,
-                        jReason);
+                        (jbyte)reason);
     LOG_DEBUG_METHOD;
     tryDetachThread();
     LOG_DEBUG_METHOD;
@@ -248,7 +254,7 @@ void JNIChatClientNotifierProxy::notifyOnRemovedByContact(int contactId)
 
 void JNIChatClientNotifierProxy::notifyOnAddContactResponse(
     const std::string& userName,
-    bool               accepted)
+     char status)
 {
     LOG_DEBUG_METHOD;
     JNIEnv* env = getJavaEnvironment();
@@ -257,7 +263,7 @@ void JNIChatClientNotifierProxy::notifyOnAddContactResponse(
     env->CallVoidMethod(m_actualNotifierObject,
                         m_onAddContactResponseJavaMethod,
                         jUserName,
-                        (jboolean)accepted);
+                        (jbyte)status);
     tryDetachThread();
 }
 
@@ -274,6 +280,19 @@ bool JNIChatClientNotifierProxy::notifyOnAddingByContact(
     bool accepted = jAccepted != 0;
     tryDetachThread();
     return  accepted;
+}
+
+void JNIChatClientNotifierProxy::notifyOnRegisterUpdateResponse(char status)
+{
+    LOG_DEBUG_METHOD;
+    JNIEnv* env = getJavaEnvironment();
+
+    env->CallVoidMethod(m_actualNotifierObject,
+                        m_onRegisterUpdateResponseJavaMethod,
+                        (jbyte)status);
+    LOG_DEBUG_METHOD;
+    tryDetachThread();
+    LOG_DEBUG_METHOD;
 }
 
 JNIEnv* JNIChatClientNotifierProxy::getJavaEnvironment()

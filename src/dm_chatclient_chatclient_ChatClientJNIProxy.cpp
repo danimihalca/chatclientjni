@@ -57,7 +57,7 @@ JNIEXPORT void JNICALL Java_dm_chatclient_chatclient_ChatClientJNIProxy_loginNat
     IChatClient* chatClient = reinterpret_cast<IChatClient*>(pointer);
 
     UserCredentials userCredentials(usernameCStr,passwordCStr);
-    chatClient->login(userCredentials);
+    chatClient->login(userCredentials,ONLINE);
 
     (env)->ReleaseStringUTFChars(username, usernameCStr);
     (env)->ReleaseStringUTFChars(password, passwordCStr);
