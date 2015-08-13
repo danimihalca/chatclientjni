@@ -44,10 +44,10 @@ JNIEXPORT void JNICALL Java_dm_chatclient_chatclient_ChatClientJNIProxy_connectN
 /*
  * Class:     dm_chatclient_chatclient_ChatClientJNIProxy
  * Method:    loginNative
- * Signature: (JLjava/lang/String;Ljava/lang/String;)V
+ * Signature: (JLjava/lang/String;Ljava/lang/String;I)V
  */
 JNIEXPORT void JNICALL Java_dm_chatclient_chatclient_ChatClientJNIProxy_loginNative
-    (JNIEnv* env, jobject /*obj*/, jlong pointer, jstring username, jstring password)
+    (JNIEnv* env, jobject /*obj*/, jlong pointer, jstring username, jstring password, jint state)
 {
     __android_log_write(ANDROID_LOG_INFO, "ChatClientNative", "loginNative");
 
@@ -57,7 +57,7 @@ JNIEXPORT void JNICALL Java_dm_chatclient_chatclient_ChatClientJNIProxy_loginNat
     IChatClient* chatClient = reinterpret_cast<IChatClient*>(pointer);
 
     UserCredentials userCredentials(usernameCStr,passwordCStr);
-    chatClient->login(userCredentials,ONLINE);
+    chatClient->login(userCredentials,static_cast<USER_STATE>(state));
 
     (env)->ReleaseStringUTFChars(username, usernameCStr);
     (env)->ReleaseStringUTFChars(password, passwordCStr);

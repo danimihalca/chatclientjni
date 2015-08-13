@@ -26,10 +26,10 @@ JNIEXPORT void JNICALL Java_dm_chatclient_chatclient_ChatClientJNIProxy_connectN
 /*
  * Class:     dm_chatclient_chatclient_ChatClientJNIProxy
  * Method:    loginNative
- * Signature: (JLjava/lang/String;Ljava/lang/String;)V
+ * Signature: (JLjava/lang/String;Ljava/lang/String;I)V
  */
 JNIEXPORT void JNICALL Java_dm_chatclient_chatclient_ChatClientJNIProxy_loginNative
-  (JNIEnv *, jobject, jlong, jstring, jstring);
+  (JNIEnv *, jobject, jlong, jstring, jstring,jint);
 
 /*
  * Class:     dm_chatclient_chatclient_ChatClientJNIProxy
