@@ -188,3 +188,15 @@ JNIEXPORT void JNICALL Java_dm_chatclient_chatclient_ChatClientJNIProxy_addConta
 
     (env)->ReleaseStringUTFChars(jUserName, userName);
 }
+
+/*
+ * Class:     dm_chatclient_chatclient_ChatClientJNIProxy
+ * Method:    changeStateNative
+ * Signature: (JI)V
+ */
+void Java_dm_chatclient_chatclient_ChatClientJNIProxy_changeStateNative
+(JNIEnv*, jobject, jlong chatClientPointer, jint state)
+{
+    IChatClient* chatClient = reinterpret_cast<IChatClient*>(chatClientPointer);
+    chatClient->changeState(static_cast<USER_STATE>(state));
+}

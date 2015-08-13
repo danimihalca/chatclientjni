@@ -95,6 +95,14 @@ JNIEXPORT void JNICALL Java_dm_chatclient_chatclient_ChatClientJNIProxy_removeCo
 JNIEXPORT void JNICALL Java_dm_chatclient_chatclient_ChatClientJNIProxy_addContactNative
   (JNIEnv *, jobject, jlong, jstring);
 
+/*
+ * Class:     dm_chatclient_chatclient_ChatClientJNIProxy
+ * Method:    changeStateNative
+ * Signature: (JI)V
+ */
+JNIEXPORT void JNICALL Java_dm_chatclient_chatclient_ChatClientJNIProxy_changeStateNative
+  (JNIEnv *, jobject, jlong, jint);
+
 #ifdef __cplusplus
 }
 #endif
