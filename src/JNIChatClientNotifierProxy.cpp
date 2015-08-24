@@ -32,13 +32,13 @@ void JNIChatClientNotifierProxy::setMethodCallback(
     switch (callbackMethod)
     {
 
-        case ON_CONNECTED:
-        {
-            setMethod(m_onConnectedJavaMethod,
-                      methodName,
-                      METHOD_SIGNATURE_VOID);
-            break;
-        }
+//        case ON_CONNECTED:
+//        {
+//            setMethod(m_onConnectedJavaMethod,
+//                      methodName,
+//                      METHOD_SIGNATURE_VOID);
+//            break;
+//        }
 
         case ON_DISCONNECTED:
         {
@@ -112,7 +112,7 @@ void JNIChatClientNotifierProxy::setMethodCallback(
             break;
         }
 
-        case ON_ADDING_BY_CONTACT:
+        case ON_ADD_REQUEST:
         {
             setMethod(m_onAddingByContactJavaMethod,
                       methodName,
@@ -129,14 +129,14 @@ void JNIChatClientNotifierProxy::setMethodCallback(
     }
 }
 
-void JNIChatClientNotifierProxy::notifyOnConnected()
-{
-    LOG_DEBUG_METHOD;
-    JNIEnv* env = getJavaEnvironment();
-    env->CallVoidMethod(m_actualNotifierObject,m_onConnectedJavaMethod);
+//void JNIChatClientNotifierProxy::notifyOnConnected()
+//{
+//    LOG_DEBUG_METHOD;
+//    JNIEnv* env = getJavaEnvironment();
+//    env->CallVoidMethod(m_actualNotifierObject,m_onConnectedJavaMethod);
 
-    tryDetachThread();
-}
+//    tryDetachThread();
+//}
 
 void JNIChatClientNotifierProxy::notifyOnDisconnected()
 {
@@ -267,7 +267,7 @@ void JNIChatClientNotifierProxy::notifyOnAddContactResponse(
     tryDetachThread();
 }
 
-bool JNIChatClientNotifierProxy::notifyOnAddingByContact(
+bool JNIChatClientNotifierProxy::notifyOnAddRequest(
     const std::string& requester)
 {
     LOG_DEBUG_METHOD;

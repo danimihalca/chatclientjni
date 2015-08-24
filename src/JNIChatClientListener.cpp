@@ -22,10 +22,10 @@ void JNIChatClientListener::onMessageReceived(const Message& message)
     p_notifierProxy->notifyOnMessageReceived(message.getSenderId(), message.getMessageText());
 }
 
-void JNIChatClientListener::onConnected()
-{
-    p_notifierProxy->notifyOnConnected();
-}
+//void JNIChatClientListener::onConnected()
+//{
+//    p_notifierProxy->notifyOnConnected();
+//}
 
 void JNIChatClientListener::onDisconnected()
 {
@@ -121,9 +121,9 @@ void JNIChatClientListener::onAddContactResponse(const std::string& userName, AD
     p_notifierProxy->notifyOnAddContactResponse(userName,static_cast<char>(status));
 }
 
-bool JNIChatClientListener::onAddingByContact(const std::string& requester)
+bool JNIChatClientListener::onAddRequest(const std::string& requester)
 {
-    return p_notifierProxy->notifyOnAddingByContact(requester);
+    return p_notifierProxy->notifyOnAddRequest(requester);
 }
 
 void JNIChatClientListener::onRegisterUpdateResponse(REGISTER_UPDATE_USER_STATUS status)

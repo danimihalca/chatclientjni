@@ -20,7 +20,7 @@ public:
     // Implements IChatClientListener interface
 public:
     void onMessageReceived(const Message& message);
-    void onConnected();
+//    void onConnected();
     void onDisconnected();
     void onLoginSuccessful(const UserDetails& userDetails);
     void onLoginFailed(AUTH_STATUS reason);
@@ -30,7 +30,7 @@ public:
 
     void onRemovedByContact(int contactId);
     void onAddContactResponse(const std::string& userName,  ADD_STATUS status);
-    bool onAddingByContact(const std::string& requester);
+    bool onAddRequest(const std::string& requester);
 
     void onRegisterUpdateResponse(REGISTER_UPDATE_USER_STATUS status);
 

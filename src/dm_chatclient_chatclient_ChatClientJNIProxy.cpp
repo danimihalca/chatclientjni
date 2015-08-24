@@ -27,11 +27,11 @@ Java_dm_chatclient_chatclient_ChatClientJNIProxy_createClientNative
 
 /*
  * Class:     dm_chatclient_chatclient_ChatClientJNIProxy
- * Method:    connectNative
+ * Method:    setServerNative
  * Signature: (JLjava/lang/String;I)V
  */
 JNIEXPORT void JNICALL
-Java_dm_chatclient_chatclient_ChatClientJNIProxy_connectNative
+Java_dm_chatclient_chatclient_ChatClientJNIProxy_setServerNative
     (JNIEnv* env, jobject /*obj*/, jlong pointer, jstring address, jint port)
 {
     __android_log_write(ANDROID_LOG_INFO,
@@ -40,7 +40,7 @@ Java_dm_chatclient_chatclient_ChatClientJNIProxy_connectNative
 
     const char* addressCStr = (env)->GetStringUTFChars(address,0);
     IChatClient* chatClient = reinterpret_cast<IChatClient*>(pointer);
-    chatClient->connect(addressCStr,(uint16_t)port);
+    chatClient->setServer(addressCStr,(uint16_t)port);
 
     (env)->ReleaseStringUTFChars(address, addressCStr);
 }

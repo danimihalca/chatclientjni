@@ -7,7 +7,7 @@
 
 enum CALLBACK_METHOD
 {
-    ON_CONNECTED,
+//    ON_CONNECTED,
     ON_DISCONNECTED,
     ON_CONNECTION_ERROR,
     ON_LOGIN_SUCCESSFUL,
@@ -18,7 +18,7 @@ enum CALLBACK_METHOD
 
     ON_REMOVED_BY_CONTACT,
     ON_ADD_CONTACT_RESPONSE,
-    ON_ADDING_BY_CONTACT,
+    ON_ADD_REQUEST,
 
     ON_REGISTER_UPDATE_RESPONSE
 };
@@ -45,7 +45,7 @@ public:
     void setMethodCallback(CALLBACK_METHOD    callbackMethod,
                            const std::string& methodName);
 
-    void notifyOnConnected();
+//    void notifyOnConnected();
     void notifyOnDisconnected();
     void notifyOnConnectionError();
     void notifyOnLoginSuccessful(const char* userDetailsByteBuffer, int size);
@@ -56,7 +56,7 @@ public:
 
     void notifyOnRemovedByContact(int contactId);
     void notifyOnAddContactResponse(const std::string& userName, char status);
-    bool notifyOnAddingByContact(const std::string& requester);
+    bool notifyOnAddRequest(const std::string& requester);
 
     void notifyOnRegisterUpdateResponse(char status);
 
