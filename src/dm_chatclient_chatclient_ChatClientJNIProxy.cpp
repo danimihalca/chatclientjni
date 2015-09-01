@@ -98,17 +98,20 @@ JNIEXPORT void JNICALL
 Java_dm_chatclient_chatclient_ChatClientJNIProxy_sendMessageNative
     (JNIEnv* env,
     jobject /*obj*/,
-    jlong    pointer,
+    jlong    address,
     jint     receiverId,
     jstring  message)
 {
     __android_log_write(ANDROID_LOG_INFO,
                         "ChatClientNative",
                         "sendMessageNative");
-    const char* messageCStr = (env)->GetStringUTFChars(message,0);
-    IChatClient* chatClient = reinterpret_cast<IChatClient*>(pointer);
-    chatClient->sendMessage(receiverId,messageCStr);
-    (env)->ReleaseStringUTFChars(message, messageCStr);
+    if (address != 0)
+    {
+        const char* messageCStr = (env)->GetStringUTFChars(message,0);
+        IChatClient* chatClient = reinterpret_cast<IChatClient*>(address);
+        chatClient->sendMessage(receiverId,messageCStr);
+        (env)->ReleaseStringUTFChars(message, messageCStr);
+    }
 }
 
 /*

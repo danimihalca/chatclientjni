@@ -72,22 +72,22 @@ private:
     JavaVM* p_javaVM;
     bool b_threadAttachedToEnv;
 
-    jobject m_actualNotifierObject;
+    jobject m_actualNotifier;
 
-    jmethodID m_onMessageJavaMethod;
-    jmethodID m_onConnectedJavaMethod;
-    jmethodID m_onDisconnectedJavaMethod;
-    jmethodID m_onLoginSuccesfulJavaMethod;
-    jmethodID m_onConnectionErrorJavaMethod;
-    jmethodID m_onLoginFailedJavaMethod;
-    jmethodID m_onContactsReceivedJavaMethod;
-    jmethodID m_onContactStatusChangedJavaMethod;
+    jmethodID m_onMessageReceivedMethod;
+    jmethodID m_onConnectedMethod;
+    jmethodID m_onDisconnectedMethod;
+    jmethodID m_onLoginSuccesfulMethod;
+    jmethodID m_onConnectionErrorMethod;
+    jmethodID m_onLoginFailedMethod;
+    jmethodID m_onContactsReceivedMethod;
+    jmethodID m_onContactStateChangedMethod;
 
-    jmethodID m_onRemovedByContactJavaMethod;
-    jmethodID m_onAddContactResponseJavaMethod;
-    jmethodID m_onAddingByContactJavaMethod;
+    jmethodID m_onRemovedByContactMethod;
+    jmethodID m_onAddContactResponseMethod;
+    jmethodID m_onAddRequestMethod;
 
-    jmethodID m_onRegisterUpdateResponseJavaMethod;
+    jmethodID m_onRegisterUpdateResponseMethod;
 };
 
 #endif // JNICHATCLIENTNOTIFIERPROXY_HPP

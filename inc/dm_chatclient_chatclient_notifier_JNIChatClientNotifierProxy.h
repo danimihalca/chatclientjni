@@ -12,7 +12,7 @@ extern "C" {
  * Method:    createNativeNotifierProxy
  * Signature: (Ldm/chatclient/chatclient/notifier/JNIChatClientNotifier;)J
  */
-JNIEXPORT jlong JNICALL Java_dm_chatclient_chatclient_notifier_JNIChatClientNotifierProxy_createNativeNotifierProxy
+JNIEXPORT jlong JNICALL Java_dm_chatclient_chatclient_notifier_JNIChatClientNotifierProxyWrapper_createNativeNotifierProxy
   (JNIEnv *, jobject, jobject);
 
 /*
@@ -20,7 +20,7 @@ JNIEXPORT jlong JNICALL Java_dm_chatclient_chatclient_notifier_JNIChatClientNoti
  * Method:    setCallbackMethodNative
  * Signature: (JILjava/lang/String;)V
  */
-JNIEXPORT void JNICALL Java_dm_chatclient_chatclient_notifier_JNIChatClientNotifierProxy_setCallbackMethodNative
+JNIEXPORT void JNICALL Java_dm_chatclient_chatclient_notifier_JNIChatClientNotifierProxyWrapper_setCallbackMethodNative
   (JNIEnv *, jobject, jlong, jint, jstring);
 
 /*
@@ -28,7 +28,7 @@ JNIEXPORT void JNICALL Java_dm_chatclient_chatclient_notifier_JNIChatClientNotif
  * Method:    destroyNativeNotifierProxy
  * Signature: (J)V
  */
-JNIEXPORT void JNICALL Java_dm_chatclient_chatclient_notifier_JNIChatClientNotifierProxy_destroyNativeNotifierProxy
+JNIEXPORT void JNICALL Java_dm_chatclient_chatclient_notifier_JNIChatClientNotifierProxyWrapper_destroyNativeNotifierProxy
   (JNIEnv *, jobject, jlong);
 
 #ifdef __cplusplus

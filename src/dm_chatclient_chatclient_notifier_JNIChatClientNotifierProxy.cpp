@@ -9,7 +9,7 @@
  * Signature: (Ldm/chatclient/chatclient/notifier/JNIChatClientNotifier;)J
  */
 JNIEXPORT jlong JNICALL
-Java_dm_chatclient_chatclient_notifier_JNIChatClientNotifierProxy_createNativeNotifierProxy
+Java_dm_chatclient_chatclient_notifier_JNIChatClientNotifierProxyWrapper_createNativeNotifierProxy
     (JNIEnv* env, jobject, jobject actualNotifier)
 {
     JavaVM* javaVM;
@@ -27,7 +27,7 @@ Java_dm_chatclient_chatclient_notifier_JNIChatClientNotifierProxy_createNativeNo
  * Signature: (JILjava/lang/String;)V
  */
 JNIEXPORT void JNICALL
-Java_dm_chatclient_chatclient_notifier_JNIChatClientNotifierProxy_setCallbackMethodNative
+Java_dm_chatclient_chatclient_notifier_JNIChatClientNotifierProxyWrapper_setCallbackMethodNative
     (JNIEnv* env,
     jobject,
     jlong    notifierPointer,
@@ -51,7 +51,7 @@ Java_dm_chatclient_chatclient_notifier_JNIChatClientNotifierProxy_setCallbackMet
  * Signature: (J)V
  */
 JNIEXPORT void JNICALL
-Java_dm_chatclient_chatclient_notifier_JNIChatClientNotifierProxy_destroyNativeNotifierProxy
+Java_dm_chatclient_chatclient_notifier_JNIChatClientNotifierProxyWrapper_destroyNativeNotifierProxy
     (JNIEnv*, jobject, jlong notifierPointer)
 {
     JNIChatClientNotifierProxy* notifier =
