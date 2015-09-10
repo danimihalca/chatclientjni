@@ -19,6 +19,7 @@ JNIChatClientListener::~JNIChatClientListener()
 
 void JNIChatClientListener::onMessageReceived(const Message& message)
 {
+    LOG_DEBUG_METHOD;
     p_notifierProxy->notifyOnMessageReceived(message.getSenderId(), message.getMessageText());
 }
 
@@ -29,12 +30,14 @@ void JNIChatClientListener::onMessageReceived(const Message& message)
 
 void JNIChatClientListener::onDisconnected()
 {
+    LOG_DEBUG_METHOD;
     p_notifierProxy->notifyOnDisconnected();
 
 }
 
 void JNIChatClientListener::onLoginSuccessful(const UserDetails& userDetails)
 {
+    LOG_DEBUG_METHOD;
 
     int size = 0;
 
@@ -62,12 +65,11 @@ void JNIChatClientListener::onLoginFailed(AUTH_STATUS reason)
 {
     LOG_DEBUG_METHOD;
     p_notifierProxy->notifyOnLoginFailed(static_cast<char>(reason));
-    LOG_DEBUG_METHOD;
-
 }
 
 void JNIChatClientListener::onConnectionError()
 {
+    LOG_DEBUG_METHOD;
     p_notifierProxy->notifyOnConnectionError();
 
 }
@@ -76,6 +78,7 @@ void JNIChatClientListener::onConnectionError()
 
 void JNIChatClientListener::onContactsReceived(const std::vector<Contact>& contacts)
 {
+    LOG_DEBUG_METHOD;
     int size = 0;
 
     char buffer[10000];
@@ -113,21 +116,25 @@ void JNIChatClientListener::onContactsReceived(const std::vector<Contact>& conta
 
 void JNIChatClientListener::onRemovedByContact(int contactId)
 {
+    LOG_DEBUG_METHOD;
     p_notifierProxy->notifyOnRemovedByContact(contactId);
 }
 
 void JNIChatClientListener::onAddContactResponse(const std::string& userName, ADD_STATUS status)
 {
+    LOG_DEBUG_METHOD;
     p_notifierProxy->notifyOnAddContactResponse(userName,static_cast<char>(status));
 }
 
 bool JNIChatClientListener::onAddRequest(const std::string& requester)
 {
+    LOG_DEBUG_METHOD;
     return p_notifierProxy->notifyOnAddRequest(requester);
 }
 
 void JNIChatClientListener::onRegisterUpdateResponse(REGISTER_UPDATE_USER_STATUS status)
 {
+    LOG_DEBUG_METHOD;
     p_notifierProxy->notifyOnRegisterUpdateResponse(static_cast<char>(status));
 }
 
@@ -135,5 +142,6 @@ void JNIChatClientListener::onRegisterUpdateResponse(REGISTER_UPDATE_USER_STATUS
 void JNIChatClientListener::onContactStateChanged(int  contactId,
                                                          USER_STATE state)
 {
+    LOG_DEBUG_METHOD;
     p_notifierProxy->notifyOnContactStatusChanged(contactId, static_cast<char>(state));
 }

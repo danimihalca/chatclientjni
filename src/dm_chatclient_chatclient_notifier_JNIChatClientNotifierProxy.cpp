@@ -1,6 +1,7 @@
 #include "dm_chatclient_chatclient_notifier_JNIChatClientNotifierProxy.h"
 
 #include "JNIChatClientNotifierProxy.hpp"
+#include <debug_utils/log_debug.hpp>
 
 
 /*
@@ -34,6 +35,7 @@ Java_dm_chatclient_chatclient_notifier_JNIChatClientNotifierProxyWrapper_setCall
     jint     callbackMethod,
     jstring  methodName)
 {
+    LOG_DEBUG_METHOD;
     JNIChatClientNotifierProxy* notifier =
         reinterpret_cast<JNIChatClientNotifierProxy*>(notifierPointer);
 
@@ -54,6 +56,7 @@ JNIEXPORT void JNICALL
 Java_dm_chatclient_chatclient_notifier_JNIChatClientNotifierProxyWrapper_destroyNativeNotifierProxy
     (JNIEnv*, jobject, jlong notifierPointer)
 {
+    LOG_DEBUG_METHOD;
     JNIChatClientNotifierProxy* notifier =
         reinterpret_cast<JNIChatClientNotifierProxy*>(notifierPointer);
 

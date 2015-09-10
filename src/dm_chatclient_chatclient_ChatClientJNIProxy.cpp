@@ -8,7 +8,7 @@
 #include <android/log.h>
 
 #include <Model/User.hpp>
-
+#include <debug_utils/log_debug.hpp>
 /*
  * Class:     dm_chatclient_chatclient_ChatClientJNIProxy
  * Method:    createClientNative
@@ -18,9 +18,8 @@ JNIEXPORT jlong JNICALL
 Java_dm_chatclient_chatclient_ChatClientJNIProxy_createClientNative
     (JNIEnv* env, jobject obj)
 {
-    __android_log_write(ANDROID_LOG_INFO,
-                        "ChatClientNative",
-                        "createClientNative");
+    LOG_DEBUG_METHOD;
+
     IChatClient* chatClient = new ChatClient();
     return (long)chatClient;
 }
@@ -34,9 +33,8 @@ JNIEXPORT void JNICALL
 Java_dm_chatclient_chatclient_ChatClientJNIProxy_setServerNative
     (JNIEnv* env, jobject /*obj*/, jlong pointer, jstring address, jint port)
 {
-    __android_log_write(ANDROID_LOG_INFO,
-                        "ChatClientNative",
-                        "setServerPropertiesNative");
+    LOG_DEBUG_METHOD;
+
 
     const char* addressCStr = (env)->GetStringUTFChars(address,0);
     IChatClient* chatClient = reinterpret_cast<IChatClient*>(pointer);
@@ -59,16 +57,13 @@ Java_dm_chatclient_chatclient_ChatClientJNIProxy_loginNative
     jstring  password,
     jint     state)
 {
-    __android_log_write(ANDROID_LOG_INFO, "ChatClientNative", "loginNative");
+    LOG_DEBUG_METHOD;
 
     const char* usernameCStr = (env)->GetStringUTFChars(username,0);
     const char* passwordCStr = (env)->GetStringUTFChars(password,0);
-
     IChatClient* chatClient = reinterpret_cast<IChatClient*>(pointer);
-
     UserCredentials userCredentials(usernameCStr,passwordCStr);
     chatClient->login(userCredentials,static_cast<USER_STATE>(state));
-
     (env)->ReleaseStringUTFChars(username, usernameCStr);
     (env)->ReleaseStringUTFChars(password, passwordCStr);
 }
@@ -83,8 +78,8 @@ JNIEXPORT void JNICALL
 Java_dm_chatclient_chatclient_ChatClientJNIProxy_disconnectNative
     (JNIEnv* env, jobject /*obj*/, jlong pointer)
 {
-    __android_log_write(ANDROID_LOG_INFO, "ChatClientNative",
-                        "disconnectNative");
+    LOG_DEBUG_METHOD;
+
     IChatClient* chatClient = reinterpret_cast<IChatClient*>(pointer);
     chatClient->disconnect();
 }
@@ -102,9 +97,8 @@ Java_dm_chatclient_chatclient_ChatClientJNIProxy_sendMessageNative
     jint     receiverId,
     jstring  message)
 {
-    __android_log_write(ANDROID_LOG_INFO,
-                        "ChatClientNative",
-                        "sendMessageNative");
+    LOG_DEBUG_METHOD;
+
     if (address != 0)
     {
         const char* messageCStr = (env)->GetStringUTFChars(message,0);
@@ -123,9 +117,8 @@ JNIEXPORT void JNICALL
 Java_dm_chatclient_chatclient_ChatClientJNIProxy_destroyClientNative
     (JNIEnv* /*env*/, jobject /*obj*/, jlong pointer)
 {
-    __android_log_write(ANDROID_LOG_INFO,
-                        "ChatClientNative",
-                        "destroyClientNative");
+    LOG_DEBUG_METHOD;
+
     IChatClient* chatClient = reinterpret_cast<IChatClient*>(pointer);
     if (chatClient != nullptr)
     {
@@ -142,9 +135,8 @@ JNIEXPORT void JNICALL
 Java_dm_chatclient_chatclient_ChatClientJNIProxy_requestContactsNative
     (JNIEnv* env, jobject obj, jlong pointer)
 {
-    __android_log_write(ANDROID_LOG_INFO,
-                        "ChatClientNative",
-                        "requestContactsNative");
+    LOG_DEBUG_METHOD;
+
 
     IChatClient* chatClient = reinterpret_cast<IChatClient*>(pointer);
     chatClient->requestContacts();

@@ -32,14 +32,6 @@ void JNIChatClientNotifierProxy::setMethodCallback(
     switch (callbackMethod)
     {
 
-//        case ON_CONNECTED:
-//        {
-//            setMethod(m_onConnectedJavaMethod,
-//                      methodName,
-//                      METHOD_SIGNATURE_VOID);
-//            break;
-//        }
-
         case ON_DISCONNECTED:
         {
             setMethod(m_onDisconnectedMethod,
@@ -128,15 +120,6 @@ void JNIChatClientNotifierProxy::setMethodCallback(
         }
     }
 }
-
-//void JNIChatClientNotifierProxy::notifyOnConnected()
-//{
-//    LOG_DEBUG_METHOD;
-//    JNIEnv* env = getJavaEnvironment();
-//    env->CallVoidMethod(m_actualNotifierObject,m_onConnectedJavaMethod);
-
-//    tryDetachThread();
-//}
 
 void JNIChatClientNotifierProxy::notifyOnDisconnected()
 {
@@ -290,13 +273,12 @@ void JNIChatClientNotifierProxy::notifyOnRegisterUpdateResponse(char status)
     env->CallVoidMethod(m_actualNotifier,
                         m_onRegisterUpdateResponseMethod,
                         (jbyte)status);
-    LOG_DEBUG_METHOD;
     tryDetachThread();
-    LOG_DEBUG_METHOD;
 }
 
 JNIEnv* JNIChatClientNotifierProxy::getJavaEnvironment()
 {
+    LOG_DEBUG_METHOD;
     b_threadAttachedToEnv = false;
 
     JNIEnv* env = nullptr;
@@ -308,9 +290,6 @@ JNIEnv* JNIChatClientNotifierProxy::getJavaEnvironment()
                                 "ChatClientNative",
                                 "Env failed to attach thread");
         }
-        __android_log_write(ANDROID_LOG_INFO,
-                            "ChatClientNative",
-                            "Thread attached to env");
 
         b_threadAttachedToEnv = true;
     }
@@ -319,12 +298,10 @@ JNIEnv* JNIChatClientNotifierProxy::getJavaEnvironment()
 
 void JNIChatClientNotifierProxy::tryDetachThread()
 {
+    LOG_DEBUG_METHOD;
     if (b_threadAttachedToEnv)
     {
         p_javaVM->DetachCurrentThread();
-        __android_log_write(ANDROID_LOG_INFO,
-                            "ChatClientNative",
-                            "Thread deattached from env");
     }
 }
 
@@ -341,9 +318,6 @@ void JNIChatClientNotifierProxy::setMethod(jmethodID&         javaMethod,
                                               methodSignature.c_str());
     if (!javaMethod)
     {
-        __android_log_write(ANDROID_LOG_ERROR,
-                            "ChatClientNative",
-                            "Failet to set method");
         tryDetachThread();
     }
 }
